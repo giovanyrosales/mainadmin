@@ -124,6 +124,36 @@ input {
 </table>
 <table  class="table-head" style="margin-top: -10px;">
   <tr>
+    <td width="100%" style="text-align:center;"><h3>Cuentas de presupuesto que se afectan:</h3>
+	<br><br>
+	</td>
+  </tr>
+</table>
+<table  class="table-head" style="margin-top: -10px;">
+  <tr>
+    <td width="15%" style="text-align:center;">COD</td>
+    <td width="45%" style="text-align:center;">CUENTA</td>
+    <td width="20%" style="text-align:center;">DISMINUYE</td>
+    <td width="20%" style="text-align:center;">AUMENTA</td>
+  </tr>
+  @foreach ($materiales as $val)
+  <tr>
+  	<td width="15%" style="text-align:center;">{{ $val->codigo }}</td>
+    <td width="45%" style="text-align:center;">{{ $val->nombre }}</td>
+    <td width="20%" style="text-align:center;"></td>
+    <td width="20%" style="text-align:center;">{{ $val->subtotal }}</td>
+  </tr>
+  @endforeach
+</table>
+<table  class="table-head" style="margin-top: -10px;">
+  <tr>
+    <td width="100%" style="text-align:center;"><h3>Cuentas de presupuesto que se refuerzan:</h3>
+	<br><br>
+	</td>
+  </tr>
+</table>
+<table  class="table-head" style="margin-top: -10px;">
+  <tr>
     <td width="15%" style="text-align:center;">COD</td>
     <td width="45%" style="text-align:center;">CUENTA</td>
     <td width="20%" style="text-align:center;">DISMINUYE</td>
@@ -137,4 +167,10 @@ input {
     <td width="20%" style="text-align:center;">{{ $val->subtotal }}</td>
   </tr>
   @endforeach
+  <tr>
+  <td width="15%" style="text-align:center;">TOTAL</td>
+    <td width="45%" style="text-align:center;"></td>
+    <td width="20%" style="text-align:center;"></td>
+    <td width="20%" style="text-align:center;">$</td>
+  </tr>
 </table>
