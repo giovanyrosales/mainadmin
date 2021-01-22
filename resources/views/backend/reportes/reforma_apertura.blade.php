@@ -42,25 +42,25 @@ input {
     <tr>
 		<td colspan="2">
 			<label style="font-weight: bold; vertical-align:middle;">&Aacute;rea de Gesti&oacute;n:</label>
-			<input type="text" style="width:70%;" value="{{ $proyecto->areagestion }}">
+			<input type="text" style="width:70%;" value="{{ $areagestionn->nombre }}">
 		</td>
 	</tr>
     <tr>
 		<td colspan="2">
 			<label style="font-weight: bold; vertical-align:middle;">Linea de Trabajo:</label>
-			<input type="text" style="width:70%;" value="{{ $proyecto->linea }}">
+			<input type="text" style="width:70%;" value="{{ $linean->nombre }}">
 		</td>
 	</tr>
     <tr>
 		<td colspan="2">
 			<label style="font-weight: bold; vertical-align:middle;">Fuente de Financiamiento:</label>
-			<input type="text" style="width:70%;" value="{{ $proyecto->fuentef }}">
+			<input type="text" style="width:70%;" value="{{ $fuentefn->nombre }}">
 		</td>
 	</tr>
     <tr>
 		<td colspan="2">
 			<label style="font-weight: bold; vertical-align:middle;">Sub-Fuente de Financiamiento:</label>
-			<input type="text" style="width:70%;" value="{{ $proyecto->fuenter }}">
+			<input type="text" style="width:70%;" value="{{ $fuentern->nombre }}">
 		</td>
 	
 	</tr>
@@ -136,14 +136,12 @@ input {
     <td width="20%" style="text-align:center;">DISMINUYE</td>
     <td width="20%" style="text-align:center;">AUMENTA</td>
   </tr>
-  @foreach ($materiales as $val)
   <tr>
-  	<td width="15%" style="text-align:center;">{{ $val->codigo }}</td>
-    <td width="45%" style="text-align:center;">{{ $val->nombre }}</td>
+  	<td width="15%" style="text-align:center;">{{ $cuenta->codigo }}</td>
+    <td width="45%" style="text-align:center;">{{ $cuenta->nombre }}</td>
+    <td width="20%" style="text-align:center;">{{ $proyecto->monto }}</td>
     <td width="20%" style="text-align:center;"></td>
-    <td width="20%" style="text-align:center;">{{ $val->subtotal }}</td>
   </tr>
-  @endforeach
 </table>
 <table  class="table-head" style="margin-top: -10px;">
   <tr>
@@ -164,13 +162,13 @@ input {
   <td width="15%" style="text-align:center;">{{ $val->codigo }}</td>
     <td width="45%" style="text-align:center;">{{ $val->nombre }}</td>
     <td width="20%" style="text-align:center;"></td>
-    <td width="20%" style="text-align:center;">{{ $val->subtotal }}</td>
+    <td width="20%" style="text-align:center;">{{ '$ '.$val->subtotal }}</td>
   </tr>
   @endforeach
   <tr>
-  <td width="15%" style="text-align:center;">TOTAL</td>
-    <td width="45%" style="text-align:center;"></td>
+  <td width="15%" style="text-align:center;"></td>
+    <td width="45%" style="text-align:center;">TOTAL</td>
     <td width="20%" style="text-align:center;"></td>
-    <td width="20%" style="text-align:center;">$</td>
+    <td width="20%" style="text-align:center;">{{ '$ '.floatval($total) }}</td>
   </tr>
 </table>

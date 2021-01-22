@@ -8,6 +8,6 @@ class proyecto extends Model
 {
     protected $table = 'proyecto';
     protected $fillable = [
-        'codigo', 'nombre', 'ubicacion', 'fuentef', 'contraparte','fechaini', 'fechafin', 'fecha', 'areagestion', 'linea', 'fuenter', 'naturaleza', 'ejecutor', 'formulador',  'supervisor', 'encargado', 'codcontable', 'acuerdoapertura', 'acuerdocierre', 'estado'
+        'codigo', 'nombre', 'ubicacion', 'fuentef', 'contraparte','fechaini', 'fechafin', 'fecha', 'areagestion', 'linea', 'fuenter', 'naturaleza', 'ejecutor', 'formulador',  'supervisor', 'encargado', 'codcontable', 'acuerdoapertura', 'acuerdocierre', 'estado', 'bolson_id', 'monto'
     ];
 }

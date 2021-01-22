@@ -29,6 +29,10 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
         Route::get('admin/load_proyectos_aper', 'proyectosController@load_proyectos_aper');
         Route::get('admin/crear_proyecto', 'proyectosController@crear_proyecto');
         Route::get('/admin/ver_proyecto/{id}', 'proyectosController@ver_proyecto');
+        //guardar proyecto
+        Route::post('admin/add_proyecto', 'proyectosController@add_proyecto');
+        Route::post('admin/get_proyecto', 'proyectosController@get_proyecto');
+        Route::post('admin/update_proyecto', 'proyectosController@update_proyecto');
 
             //BITACORAS DE PROYECTO
             Route::post('admin/add_bitacora', 'proyectosController@add_bitacora');
@@ -42,10 +46,6 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
 
             Route::get('print-bit/{id}', [ 'as' => 'pdf.bit', 'uses' => 'PdfController@pdf_bitacora' ]);
 
-        //guardar proyecto
-        Route::post('admin/add_proyecto', 'proyectosController@add_proyecto');
-
-         
          //ADMINISTRACION --> CUENTAS BOLSON
             Route::get('admin/bolsones', 'bolsonController@load_bolsones');
             Route::post('admin/addbolson', 'bolsonController@nuevobolson');
