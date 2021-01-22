@@ -78,4 +78,22 @@ class PdfController extends Controller
     
     }
 
+    //pdf reporte para cotizar en comprasal
+    public function pdf_rep_comprasal(Request $request)
+    {
+        $proyecto = DB::table('proyecto')->where('id',  $request->id)->first();
+        $materiales_proy = DB::table('materiales_proyecto')->where('proyecto_id',  $proyecto->id)->get();
+        foreach($materiales_proy as $mat){
+                $mat_info = DB::table('materiales')->where('id',  $mat->material_id)->first();
+                 //metemos nuevas variables en el arreglo $materiales_proy
+                $mat->nombre = $mat_info->nombre;
+                $mat->calsificacion = $mat_info->clasificacion;
+        }
+
+
+        $pdf = PDF::loadView('backend.reportes.rep_comprasal', compact('proyecto', 'materiales_proy'));
+        $pdf->setPaper('letter', 'portrait')->setWarnings(false);
+        return $pdf->stream('Resultado_Examen.pdf');
+        //return view('backend.paginas.Hemo',compact('data'));
+    }
 }
