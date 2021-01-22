@@ -54,8 +54,13 @@
                   <td>{{ $datos-> fechaini }}</td>
                   <td>{{ $datos-> encargado }}</td>          
                   <td>
-                  <a class="btn btn-success btn-xs" href="{{ url('/admin/pdf_reforma_apertura/'.$datos->id ) }}" target="_blank">
-                  <i class="fa fa-eye" title="Generar"></i>&nbsp; Generar Reforma </a>
+                  @if( $datos->estado == "1" )
+                    <a class="btn btn-warning btn-xs" href="{{ url('/admin/pdf_reforma_apertura/'.$datos->id ) }}" target="_blank">
+                    <i class="fa fa-eye" title="Generar"></i>&nbsp; Comprasal </a>
+                   @else
+                    <a class="btn btn-success btn-xs" href="{{ url('/admin/pdf_reforma_apertura/'.$datos->id ) }}" target="_blank">
+                    <i class="fa fa-eye" title="Generar"></i>&nbsp; Generar Reforma </a>
+                  @endif
                   </td>                    
                 </tr>
               @endforeach  

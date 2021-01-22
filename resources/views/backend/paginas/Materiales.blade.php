@@ -144,12 +144,15 @@
                     <div class="form-group">
                         <label>Clasificaci&oacute;n:</label>   
                         <select  class="form-control clasificacionn" id="clasificacionn" name="clasificacionn">
-                          <option value="materiales">Materiales</option>
-                          <option value="herramienta">Herramienta</option>
-                          <option value="alquiler_maquinaria">Alquiler de Maquina</option>
-                          <option value="mano_de_obra">Mano de Obra</option>
-                          <option value="transporte">Transporte</option>
-                          <option value="aporte_patronal">Aporte Patronal</option>
+                        <option value="ferreteria">Materiales de Ferreteria</option>
+                        <option value="electricos">Materiales El&eacute;ctricos</option>
+                        <option value="petreos">Materiales Petreos</option>
+                        <option value="pvc">Materiales y Acc. de PVC</option>
+                        <option value="lamina">Lamina</option>
+                        <option value="postes">Postes de Concreto</option>
+                        <option value="valvulas">Valvulas para agua</option>
+                        <option value="servicios">Servicios</option>
+                        <option value="galvanizados">Tuberia y Acc. Galvanizados</option>
                         </select>
                     </div>                
                   </div>
@@ -232,12 +235,15 @@
                     <div class="form-group">
                       <label>Clasificaci&oacute;n:</label>   
                       <select  class="form-control clasificacion" id="clasificacion" name="clasificacion">
-                        <option value="materiales">Materiales</option>
-                        <option value="herramienta">Herramienta</option>
-                        <option value="alquiler_maquinaria">Alquiler de Maquina</option>
-                        <option value="mano_de_obra">Mano de Obra</option>
-                        <option value="transporte">Transporte</option>
-                        <option value="aporte_patronal">Aporte Patronal</option>
+                        <option value="ferreteria">Materiales de Ferreteria</option>
+                        <option value="electricos">Materiales El&eacute;ctricos</option>
+                        <option value="petreos">Materiales Petreos</option>
+                        <option value="pvc">Materiales y Acc. de PVC</option>
+                        <option value="lamina">Lamina</option>
+                        <option value="postes">Postes de Concreto</option>
+                        <option value="valvulas">Valvulas para agua</option>
+                        <option value="servicios">Servicios</option>
+                        <option value="galvanizados">Tuberia y Acc. Galvanizados</option>
                       </select>
                     </div>                
                   </div>
