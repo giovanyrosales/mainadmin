@@ -250,7 +250,7 @@ function enviarModalEditar(){
       formData.append('id', id);
       
 
-      axios.post('/admin/update_fuenter', formData, {  
+      axios.post('update_fuenter', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -276,7 +276,7 @@ function enviarModalEditar(){
       formData.append('nombre', nombre);
       formData.append('codigo', codigo);
 
-      axios.post('/admin/add_fuenter', formData, {  
+      axios.post('add_fuenter', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -324,7 +324,7 @@ function borrarfuenter(){
   id = document.getElementById("idD").value;
   spinHandle = loadingOverlay().activate(); // mostrar loading
 
-  axios.post('/admin/delete_fuenter',{
+  axios.post('delete_fuenter',{
     'id': id  
       })
       .then((response) => {	
