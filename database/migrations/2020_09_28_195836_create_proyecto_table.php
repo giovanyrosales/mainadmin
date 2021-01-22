@@ -35,6 +35,9 @@ class CreateProyectoTable extends Migration
             $table->string('acuerdoapertura', 100)->nullable();
             $table->string('acuerdocierre', 100)->nullable();
             $table->string('estado')->nullable();
+            $table->decimal('monto', 10, 2)->nullable();
+            $table->bigInteger('bolson_id')->nullable();
+
         });
     }
 

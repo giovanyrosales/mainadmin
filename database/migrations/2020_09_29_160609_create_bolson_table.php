@@ -16,9 +16,11 @@ class CreateBolsonTable extends Migration
         Schema::create('bolson', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
+            $table->string('numero');
             $table->date('fecha');
             $table->decimal('montoini', 8, 2);
             $table->decimal('saldo', 8, 2);
+            $table->string('estado');
             $table->bigInteger('cuenta_id')->unsigned(); 
 
 

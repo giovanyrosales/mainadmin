@@ -34,7 +34,13 @@ class proyectosController extends Controller
   public function load_proyectos(){
     //para cargar los proyectos
     $proyectos = proyecto::all();
-     return view('backend.paginas.Proyectos',compact('proyectos'));
+    $cuentas = cuenta::all();
+    $bolsones = bolson::all();
+    $lineas = linea::all();
+    $areasgestion = areagestion::all();
+    $fuentesf = fuentef::all();
+    $fuentesr = fuenter::all();
+     return view('backend.paginas.Proyectos',compact('proyectos','cuentas','bolsones', 'lineas', 'areasgestion', 'fuentesf', 'fuentesr'));
  }
 
   // retornar vista 
@@ -43,6 +49,23 @@ class proyectosController extends Controller
      $proyectos = proyecto::all();
      return view('backend.paginas.Reformas_Aper',compact('proyectos'));
 }
+
+ // get proyecto para actualizar
+ public function get_proyecto(Request $request){
+    if($request->isMethod('post')){    
+
+        if($datos = DB::Table('proyecto')->where('id', $request->id)->first()){
+            return [
+                'success' => 1,
+                'proyecto' => $datos
+            ];
+        }else{
+            return [
+                'success' => 2 // Proyecto no encontrado                   
+            ];
+            }
+        }
+    }
 
  // retornar ver proyecto 
  public function ver_proyecto(Request $dato){
@@ -53,6 +76,30 @@ class proyectosController extends Controller
     $materiales = materiales::all();
      return view('backend.paginas.Ver_proyecto',compact('proyecto','bitacoras','partidas', 'materiales'));
  }
+    // Actualizar Proyecto
+public function update_proyecto(Request $request){
+
+    if($request->isMethod('post')){  
+
+        if($cuenta = DB::table('proyecto')->where('id', $request->id)->first()){                        
+            
+                DB::table('proyecto')->where('id', '=', $request->id)->update(['codigo' => $request->codigo, 'nombre' => $request->nombre,
+                'ubicacion' => $request->ubicacion,'naturaleza' => $request->naturaleza,'areagestion' => $request->areagestion,'linea' => $request->linea,
+                'fuentef' => $request->fuentef,'fuenter' => $request->fuenter,'contraparte' => $request->contraparte,'codcontable' => $request->codcontable,
+                'fechaini' => $request->fechaini,'ejecutor' => $request->ejecutor,'formulador' => $request->formulador,'supervisor' => $request->supervisor,
+                'encargado' => $request->encargado,'bolson_id' => $request->bolson_id,'monto' => $request->monto ]);
+                
+                return [
+                    'success' => 1 // datos guardados correctamente
+                ];                    
+             
+        }else{
+            return [
+                'success' => 2 //proyecto no encontrado
+            ];
+        }
+    }
+}
   
  // retornar vista  crear proyecto
   public function crear_proyecto(){
@@ -216,12 +263,13 @@ public function update_bitacora(Request $request){
                 return [
                     'success' => 1 // datos guardados correctamente
                 ];                    
-            }
+            
         }else{
             return [
                 'success' => 3 //Bitacora no encontrado
             ];
         }
+    }
 }
 
 /******************************Agregar partida nueva */

@@ -8,6 +8,6 @@ class bolson extends Model
 {
     protected $table = 'bolson';
     protected $fillable = [
-        'nombre', 'fecha', 'montoini', 'cuenta_id', 'saldo'
+        'nombre', 'fecha', 'montoini', 'cuenta_id', 'saldo', 'numero', 'estado'
     ];
 }

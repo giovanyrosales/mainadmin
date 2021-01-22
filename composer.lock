@@ -1227,6 +1227,7 @@
                 "datetime",
                 "time"
             ],
+<<<<<<< HEAD
             "support": {
                 "issues": "https://github.com/briannesbitt/Carbon/issues",
                 "source": "https://github.com/briannesbitt/Carbon"
@@ -1241,6 +1242,8 @@
                     "type": "tidelift"
                 }
             ],
+=======
+>>>>>>> 26408823f9d782fe1fd220fc54d26e35ca525f56
             "time": "2020-12-17T20:55:32+00:00"
         },
         {
