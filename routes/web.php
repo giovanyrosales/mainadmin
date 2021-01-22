@@ -105,6 +105,7 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
            //Generacion de PDFs
            //pdf reforma_apertura
            Route::get('admin/pdf_reforma_apertura/{id}', 'PdfController@pdf_reforma_apertura');
+           Route::get('pdf_rep_comprasal/{id}', 'PdfController@pdf_rep_comprasal');
 
 
     //INFORMACION DE USUARIOS
