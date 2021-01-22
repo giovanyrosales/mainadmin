@@ -193,7 +193,7 @@ toastr.options.timeOut = 750;
 function abrirModalEditar(id){
   document.getElementById("formularioU").reset();   
   spinHandle = loadingOverlay().activate();
-  axios.post('/admin/get_cuenta',{'id': id })
+  axios.post('get_cuenta',{'id': id })
       .then((response) => {	
         loadingOverlay().cancel(spinHandle); // cerrar loading
         if(response.data.success = 1){
@@ -231,7 +231,7 @@ function enviarModalEditar(){
       formData.append('id', id);
       
 
-      axios.post('/admin/update_cuenta', formData, {  
+      axios.post('update_cuenta', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -255,7 +255,7 @@ function enviarModalEditar(){
       formData.append('nombre', nombre);
       formData.append('codigo', codigo);
 
-      axios.post('/admin/add_cuenta', formData, {  
+      axios.post('add_cuenta', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -303,7 +303,7 @@ function borrarcodigo(){
   id = document.getElementById("idD").value;
   spinHandle = loadingOverlay().activate(); // mostrar loading
 
-  axios.post('/admin/delete_cuenta',{
+  axios.post('delete_cuenta',{
     'id': id  
       })
       .then((response) => {	

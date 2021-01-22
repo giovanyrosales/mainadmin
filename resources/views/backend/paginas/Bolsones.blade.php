@@ -220,7 +220,7 @@ toastr.options.timeOut = 750;
 function abrirModalEditar(id){
   document.getElementById("formularioU").reset();   
   spinHandle = loadingOverlay().activate();
-  axios.post('/admin/infobolson',{'id': id })
+  axios.post('infobolson',{'id': id })
       .then((response) => {	
         loadingOverlay().cancel(spinHandle); // cerrar loading
         if(response.data.success = 1){
@@ -264,7 +264,7 @@ function enviarModalEditar(){
       formData.append('id', id);
       
 
-      axios.post('/admin/update_bolson', formData, {  
+      axios.post('update_bolson', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -293,7 +293,7 @@ function enviarModalEditar(){
       formData.append('montoini', montoini);
       
 
-      axios.post('/admin/addbolson', formData, {  
+      axios.post('addbolson', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -341,7 +341,7 @@ function borrarServicio(){
   id = document.getElementById("idD").value;
   spinHandle = loadingOverlay().activate(); // mostrar loading
 
-  axios.post('/admin/deletebolson',{
+  axios.post('deletebolson',{
     'id': id  
       })
       .then((response) => {	
