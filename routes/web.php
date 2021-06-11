@@ -39,10 +39,10 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
             Route::post('admin/get_bitacora', 'proyectosController@get_bitacora');
             Route::post('admin/update_bitacora', 'proyectosController@update_bitacora');
 
-            //PARTIDAS DE PROYECTO
-            Route::post('admin/add_partida', 'proyectosController@add_partida');
-            Route::post('admin/get_partida', 'proyectosController@get_partida');
-            Route::post('admin/update_partida', 'proyectosController@update_partida');
+            //REQUISICIONES DE PROYECTO
+            Route::post('admin/add_requisicion', 'proyectosController@add_requisicion');
+            Route::post('admin/get_requisicion', 'proyectosController@get_requisicion');
+            Route::post('admin/update_requisicion', 'proyectosController@update_requisicion');
 
             Route::get('print-bit/{id}', [ 'as' => 'pdf.bit', 'uses' => 'PdfController@pdf_bitacora' ]);
 
@@ -68,11 +68,11 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
            Route::post('admin/delete_material', 'materialesController@delete_material');
 
            //CONFIGURACIONES --> PROVEEDORES
-           Route::get('admin/load_proveedores', 'materialesController@load_proveedores');
-           Route::post('admin/add_proveedor', 'materialesController@add_proveedor');
-           Route::post('admin/get_proveedor', 'materialesController@get_proveedor');
-           Route::post('admin/update_proveedor', 'materialesController@update_proveedor');
-           Route::post('admin/delete_proveedor', 'materialesController@delete_proveedor');
+           Route::get('admin/load_proveedores', 'ProveedorController@load_proveedor');
+           Route::post('admin/add_proveedor', 'ProveedorController@add_proveedor');
+           Route::post('admin/get_proveedor', 'ProveedorController@get_proveedor');
+           Route::post('admin/update_proveedor', 'ProveedorController@update_proveedor');
+           Route::post('admin/delete_proveedor', 'ProveedorController@delete_proveedor');
 
            //CONFIGURACIONES --> Linea de trabajo
            Route::get('admin/load_linea', 'configController@load_linea');

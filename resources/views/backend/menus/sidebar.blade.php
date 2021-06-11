@@ -33,52 +33,6 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-list"></i>
-              <p>
-              Cotizaciones
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a style="margin-left: 15px;" href="{{ url('/admin/newproyecto') }}" target="frameprincipal" class="nav-link">
-                  <i class="far fa-file nav-icon"></i>
-                  <p>--------</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a style="margin-left: 15px;" href="{{ url('/admin/proyectos') }}" target="frameprincipal" class="nav-link">
-                  <i class="far fa-list-alt nav-icon"></i>
-                  <p>Registros</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-list"></i>
-              <p>
-              Ordenes de Compra
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a style="margin-left: 15px;" href="{{ url('/admin/newproyecto') }}" target="frameprincipal" class="nav-link">
-                  <i class="far fa-file nav-icon"></i>
-                  <p>Nueva</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a style="margin-left: 15px;" href="{{ url('/admin/proyectos') }}" target="frameprincipal" class="nav-link">
-                  <i class="far fa-list-alt nav-icon"></i>
-                  <p>Registros</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
               Proyectos
@@ -100,15 +54,39 @@
                   <p>Proyectos Registrados</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a style="margin-left: 15px;" href="{{ url('/admin/load_proyectos_aper') }}" target="frameprincipal" class="nav-link">
                   <i class="far fa-list-alt nav-icon"></i>
                   <p>Reformas de Apertura</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
           <li class="nav-item has-treeview">
+            <a href="{{ url('/admin/proyectos') }}" target="frameprincipal" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+              Requisiciones
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="{{ url('/admin/proyectos') }}" target="frameprincipal" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+              Cotizaciones
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="{{ url('/admin/proyectos') }}" target="frameprincipal" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+              Ordenes de Compra
+              </p>
+            </a>
+          </li>
+          <!-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-inbox"></i>
               <p>
@@ -130,8 +108,8 @@
                 </a>
               </li>
             </ul>
-          </li>
-          <li class="nav-item has-treeview">
+          </li>-->
+          <!-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
@@ -153,8 +131,8 @@
                 </a>
               </li>
             </ul>
-          </li>
-          <li class="nav-item has-treeview">
+          </li> -->
+          <!--<li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
@@ -170,7 +148,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>

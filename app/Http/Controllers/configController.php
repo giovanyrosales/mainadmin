@@ -96,7 +96,7 @@ class configController extends Controller
 
    }
 }
-    // editar linea de trabajo
+// editar linea de trabajo
 public function update_linea(Request $request){
 
     if($request->isMethod('post')){  
@@ -196,7 +196,7 @@ public function get_areagestion(Request $request){
 
    }
 }
-    // editar area de gestion
+// editar area de gestion
 public function update_areagestion(Request $request){
 
     if($request->isMethod('post')){  

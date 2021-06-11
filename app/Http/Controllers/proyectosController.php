@@ -17,8 +17,8 @@ use App\fuentef;
 use App\fuenter;
 use App\linea;
 use App\bitacora;
-use App\partida;
-use App\deta_partida;
+use App\requisicion;
+use App\deta_requisicion;
 use App\bitfotos;
 use App\materiales_proy;
 
@@ -72,9 +72,9 @@ class proyectosController extends Controller
     //para cargar un proyecto
     $proyecto = DB::table('proyecto')->where('id', $dato->id)->first();
     $bitacoras = DB::table('bitacora')->where('proyecto_id', $dato->id)->get();
-    $partidas = DB::table('partida')->where('proyecto_id', $dato->id)->get();
+    $requisiciones = DB::table('requisicion')->where('proyecto_id', $dato->id)->get();
     $materiales = materiales::all();
-     return view('backend.paginas.Ver_proyecto',compact('proyecto','bitacoras','partidas', 'materiales'));
+     return view('backend.paginas.Ver_proyecto',compact('proyecto','bitacoras','requisiciones', 'materiales'));
  }
     // Actualizar Proyecto
 public function update_proyecto(Request $request){
@@ -173,117 +173,21 @@ public function update_proyecto(Request $request){
 
      }
  }
-// agregar nueva Bitacora
-public function add_bitacora(Request $request){ 
-    if($request->isMethod('post')){  
-  
-       $regla = array(         
-           'fecha' => 'required',
-           'proyecto_id' => 'required'
-            );
 
-       $mensaje = array(
-           'fecha.required' => 'Fecha requerido',
-           'proyecto_id.required' => 'Poryecto Requerido'
-           );
-
-           $validar = Validator::make($request->all(), $regla, $mensaje );
-
-           if ($validar->fails())
-           {
-               return [
-                   'success' => 0, 
-                   'message' => $validar->errors()->all()
-               ];
-           }   
-
-        $crearbitacora = bitacora::insertGetId([
-       'proyecto_id'=>$request->proyecto_id,
-       'num'=>$request->num,
-       'fecha'=>$request->fecha,
-       'observaciones'=>$request->observaciones]); 
-       $bitacora_id = DB::getPdo()->lastInsertId();
-            
-            foreach ($request->file('dir') as $key => $img) {
-                
-                $cadena = Str::random(8);
-                $nombre = str_replace(' ', '_', $cadena);
-
-                $extension = '.'.$img->getClientOriginalExtension();
-                $nombreFoto = $nombre.$extension;
-
-                Storage::disk('bitfotos')->put($nombreFoto, \File::get($img));
-
-                // insertar nombre fotografia
-                    $bitfotos = bitfotos::insertGetId([
-                        'bitacora_id'=>$bitacora_id,
-                        'dir'=>$nombreFoto,
-                        'nombre'=>$request->titulo[$key]]); 
-                }
-
-       if($crearbitacora){               
-           return [
-               'success' => 1
-           ];
-      }else{
-          return [
-              'success' => 2 //
-          ];
-      }
-
-   }
-}
- // get bitacora para actualizar
- public function get_bitacora(Request $request){
-    if($request->isMethod('post')){    
-
-        if($datos = DB::Table('bitacora')->where('id', $request->id)->first()){
-            return [
-                'success' => 1,
-                'bitacora' => $datos
-            ];
-        }else{
-            return [
-                'success' => 2 // Bitacora no encontrado                   
-            ];
-            }
-        }
-    }
-
-    // Actualizar Bitacora
-public function update_bitacora(Request $request){
-
-    if($request->isMethod('post')){  
-
-        if($cuenta = DB::table('bitacora')->where('id', $request->id)->first()){                        
-            
-                DB::table('bitacora')->where('id', '=', $request->id)->update(['fecha' => $request->fecha,
-                'observaciones' => $request->observaciones ]);
-                
-                return [
-                    'success' => 1 // datos guardados correctamente
-                ];                    
-            
-        }else{
-            return [
-                'success' => 3 //Bitacora no encontrado
-            ];
-        }
-    }
-}
-
-/******************************Agregar partida nueva */
- public function add_partida(Request $request){ 
+/******************************Agregar Requisicion nueva */
+ public function add_requisicion(Request $request){ 
     if($request->isMethod('post')){  
   
        $regla = array( 
            'proyecto_id' => 'required',     
-           'item' => 'required'
+           'destino' => 'required',
+           'fecha' => 'required',
+           'necesidad' => 'required'
        );
 
        $mensaje = array(
            'proyecto_id.required' => 'Proyecto_id es requerido',
-           'item.required' => 'item es requerido'
+           'fecha.required' => 'Fecha es requerida'
            );
 
        $validar = Validator::make($request->all(), $regla, $mensaje );
@@ -296,34 +200,26 @@ public function update_bitacora(Request $request){
            ];
        }   
 
-        $idpartida = partida::insertGetId([
-       'item'=>$request->item,
-       'nombre'=>$request->nombre,
-       'cantidadp'=>$request->cantidadp,
+        $idrequisicion = requisicion::insertGetId([
+       'destino'=>$request->destino,
+       'fecha'=>$request->fecha,
+       'necesidad'=>$request->necesidad,
        'proyecto_id'=>$request->proyecto_id]); 
-       if($idpartida){     
-           $partida_id = DB::getPdo()->lastInsertId();
-           for ($i = 0; $i < count($request->cantidad); $i++) {
-               $detalle_partida = deta_partida::insertGetId([
-               'partida_id'=>$partida_id,
-               'material_id'=>$request->material_id[$i],
+       if($idrequisicion){     
+           $requisicion_id = DB::getPdo()->lastInsertId();
+           for ($i = 0; $i < count($request->unidadmedida); $i++) {
+               $detalle_requisicion = deta_requisicion::insertGetId([
+               'requisicion_id'=>$requisicion_id,
+               'unidadmedida'=>$request->unidadmedida[$i],
                'cantidad'=>$request->cantidad[$i],
-               'unidad'=>$request->unidad[$i]]);
+               'descripcion'=>$request->descripcion[$i]]);
             }
        }
-       if($detalle_partida){
-        for ($i = 0; $i < count($request->material_id); $i++) {
-            $materiales_proyecto = materiales_proy::insertGetId([
-            'estado'=>'1',
-            'cantidad'=>$request->cantidad[$i],
-            'material_id'=>$request->material_id[$i],
-            'proyecto_id'=>$request->proyecto_id]);
-           }
-       }
-       if($materiales_proyecto){               
+      
+       if($detalle_requisicion){               
            return [
                'success' => 1,
-               'partida_id' => $partida_id// si
+               'requisicion_id' => $requisicion_id// si
            ];
                     }else{
                         return [
@@ -333,19 +229,19 @@ public function update_bitacora(Request $request){
 
                  }
         }
-        // get partida para actualizar
- public function get_partida(Request $request){
+        // get Req para actualizar
+ public function get_requisicion(Request $request){
     if($request->isMethod('post')){    
 
-        if($datos = DB::Table('partida')->where('id', $request->id)->first()){
-            $datosdetalle = DB::table('detalle_partida')->where('partida_id', $datos->id)->get();
-            foreach ($datosdetalle as $dat){
-                $nombre = DB::Table('materiales')->where('id', $dat->material_id)->first();
-                $dat->nombrematerial = $nombre->nombre; 
-            }
+        if($datos = DB::Table('requisicion')->where('id', $request->id)->first()){
+            $datosdetalle = DB::table('det_requisicion')->where('requisicion_id', $datos->id)->get();
+            //foreach ($datosdetalle as $dat){
+            //    $nombre = DB::Table('materiales')->where('id', $dat->material_id)->first();
+            //    $dat->nombrematerial = $nombre->nombre; 
+            //}
             return [
                 'success' => 1,
-                'partida' => $datos,
+                'requisicion' => $datos,
                 'datosdetalle' => $datosdetalle
             ];
         }else{
@@ -355,27 +251,26 @@ public function update_bitacora(Request $request){
             }
         }
     }
-            // Actualizar partida
-        public function update_partida(Request $request){
+            // Actualizar Requisicion
+        public function update_requisicion(Request $request){
+            if($request->isMethod('post')){
 
-            if($request->isMethod('post')){  
-
-                if($partida = DB::table('partida')->where('id', $request->id)->first()){                        
+                if($requisicion = DB::table('requisicion')->where('id', $request->id)->first()){                        
                     
-                        DB::table('partida')->where('id', '=', $request->id)->update(['cantidadp' => $request->cantidadp,
-                        'nombre' => $request->nombre ]);
+                        DB::table('requisicion')->where('id', '=', $request->id)->update(['destino' => $request->destinop,
+                        'necesidad' => $request->necesidadp ]);
                         
-                        for ($i = 0; $i < count($request->material_id); $i++) {
-                           if($det_partida = DB::table('detalle_partida')->where('id', $request->iddet[$i])->first()){
-                                DB::table('detalle_partida')->where('id', '=', $request->iddet[$i])->update(['cantidad' => $request->cantidad[$i],
-                                'material_id' => $request->material_id[$i],
-                                'unidad' => $request->unidad[$i]]);
+                        for ($i = 0; $i < count($request->cantidad); $i++) {
+                           if($det_requisicion = DB::table('det_requisicion')->where('id', $request->iddet[$i])->first()){
+                                DB::table('det_requisicion')->where('id', '=', $request->iddet[$i])->update(['cantidad' => $request->cantidad[$i],
+                                'descripcion' => $request->descripcion[$i],
+                                'unidadmedida' => $request->unidadmedida[$i]]);
                            }else{
-                                $detalle_partida = deta_partida::insertGetId([    
-                                'partida_id'=>$partida->id,                            
-                                'material_id'=>$request->material_id[$i],
+                                $det_requisicion = deta_partida::insertGetId([    
+                                'requisicion_id'=>$requisicion->id,                            
                                 'cantidad'=>$request->cantidad[$i],
-                                'unidad'=>$request->unidad[$i]]);
+                                'unidadmedida'=>$request->unidadmedida[$i],
+                                'descripcion'=>$request->descripcion[$i]]);
                                 }
                         }
                         
