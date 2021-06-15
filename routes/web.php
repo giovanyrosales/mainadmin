@@ -74,6 +74,13 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
            Route::post('admin/update_proveedor', 'ProveedorController@update_proveedor');
            Route::post('admin/delete_proveedor', 'ProveedorController@delete_proveedor');
 
+           //CONFIGURACIONES --> ADMINISTRADORES DE CONTRATO
+           Route::get('admin/load_admin', 'configController@load_admin');
+           Route::post('admin/add_admin', 'configController@add_admin');
+           Route::post('admin/get_admin', 'configController@get_admin');
+           Route::post('admin/update_admin', 'configController@update_admin');
+           Route::post('admin/delete_admin', 'configController@delete_admin');
+
            //CONFIGURACIONES --> Linea de trabajo
            Route::get('admin/load_linea', 'configController@load_linea');
            Route::post('admin/add_linea', 'configController@add_linea');
@@ -106,6 +113,12 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
            //pdf reforma_apertura
            Route::get('admin/pdf_reforma_apertura/{id}', 'PdfController@pdf_reforma_apertura');
            Route::get('pdf_rep_comprasal/{id}', 'PdfController@pdf_rep_comprasal');
+
+           //PDF Orden de Compra
+            Route::get('create-item1/{id}', [
+                'as' => 'pdf.orden.create', 
+                'uses' => 'PdfController@pdf_orden'
+            ]);
 
 
     //INFORMACION DE USUARIOS

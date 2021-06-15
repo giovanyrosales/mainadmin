@@ -216,7 +216,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                          <label>Num:</label>   
+                          <label>Num. Req.:</label>   
                           <input  type="text" class="form-control" id="nump" name="nump" readonly>
                           <input type="hidden" class="form-control" id="idU2" name="idU2">
                       </div>
@@ -238,7 +238,7 @@
                     <div class="col-md-2">
                       <div class="form-group">
                         <br><br>
-                        <button type="button" onclick="abrirModalAgregarDet(2)" class="btn btn-primary btn-xs float-right">
+                        <button type="button" onclick="abrirModalAgregarDet_Req(2)" class="btn btn-primary btn-xs float-right">
                         <i class="fas fa-plus" title="Add"></i>&nbsp; Agregar</button>
                       </div>
                     </div> 
@@ -329,6 +329,9 @@
   <script src="{{ asset('plugins/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
 
   <script>
+// variable para borrar las filas de una requisicion
+var todelete = [];
+
 //*********************** Para darle tiempo al toaster al recargar la pagina */
     toastr.options.timeOut = 750;
     toastr.options.fadeOut = 750;
@@ -369,8 +372,6 @@ function enviarModalAgregarReq(){
         formData.append('descripcion[]', descripciones[a]);
       }    
 
-      
-
       axios.post('/admin/add_requisicion', formData, {  
        })
        .then((response) => {	
@@ -392,7 +393,6 @@ function abrirModalAgregarDet_Req(m){
     }   
     $('#modalAgregarReq').modal('show');   
 }
-
 // abre el modal para editar una Requisicion
 function abrirModalEditar(id){
   document.getElementById("formularioU2").reset();   
@@ -405,33 +405,37 @@ function abrirModalEditar(id){
           $('#modalEditar').css('overflow-y', 'auto');
           $('#modalEditar').modal('show');
           $('#nump').val(response.data.requisicion.id);
+          $('#idU2').val(response.data.requisicion.id);
           $('#destinop').val(response.data.requisicion.destino);    
-          $('#fechanp').val(response.data.requisicion.fecha);    
-          $('#necesidadp').val(response.data.requisicion.necesidad);    
-          //$('#proyecto_id').val(response.data.requisicion.proyecto_id);    
+          $('#fechap').val(response.data.requisicion.fecha);    
+          $('#necesidadp').val(response.data.requisicion.necesidad);             
           
           var detrequisicion = response.data.datosdetalle;
           for (var i = 0; i < detrequisicion.length; i++) {
-              var data = '<tr><td><input id="cantidad'+i+'" name="cantidad[]" class="form-control" type="number" step="any" value="'+detrequisicion[i].cantidad+'"></td>\n\
-                              <td><input id="descripcion'+i+'" class="form-control" type="text" value="'+detrequisicion[i].descripcion+'" readonly></td>\n\
-                              <td><input id="unidadmedida'+i+'" name="unidadmedida[]" type="text" class="form-control" value="'+detrequisicion[i].unidadmedida+'"  readonly></td>\n\
+              var data = '<tr id="'+i+'"><td><input id="cantidad'+i+'" name="cantidad[]" class="form-control" type="number" step="any" value="'+detrequisicion[i].cantidad+'"></td>\n\
+                              <td><input id="descripcion'+i+'" name="descripcion[]" class="form-control" type="text" value="'+detrequisicion[i].descripcion+'" ></td>\n\
+                              <td><input id="unidadmedida'+i+'" name="unidadmedida[]" type="text" class="form-control" value="'+detrequisicion[i].unidadmedida+'"  ></td>\n\
                               <td><input id="id'+i+'" name="id[]" type="hidden" class="form-control" value="'+detrequisicion[i].id+'">\n\
-                              <button class="btn btn-block btn-danger btn-xs" id="delete3">Borrar</button></td></tr>';    
+                              <button class="btn btn-block btn-danger btn-xs" id="delete"">Borrar</button></td></tr>';    
                 $("#matrizpar tbody").append(data);
                   }
-                $("#matrizpar tbody").on("click", "#delete3", function (ev) {
+                $("#matrizpar tbody").on("click", "#delete", function (ev) {
                   var $currentTableRow = $(ev.currentTarget).parents('tr')[0];
-                      $currentTableRow.remove();
+                  //agrego id eliminado a array
+                  var trid = $(this).closest('tr').attr('id');
+                    todelete.push(document.getElementById('id'+trid).value);
+                    //elimino la fila
+                    $currentTableRow.remove();
                 });
         }else{ 
-          toastr.error('Error', 'Requerimiento no encontrada'); 
+          toastr.error('Error', 'Requerimiento no encontrado'); 
         }
       })
-      .catch((error) => {
-        loadingOverlay().cancel(spinHandle); // cerrar loading
-        toastr.error('Error');    
-  });
-}
+        .catch((error) => {
+          loadingOverlay().cancel(spinHandle); // cerrar loading
+          toastr.error('Error');    
+    });
+  }
     //*********** guardar edicion de Requisicion con detalle de Req *****/ 
     function enviarModalEditarReq(){
             var destinop = document.getElementById('destinop').value;
@@ -448,18 +452,18 @@ function abrirModalEditar(id){
           //document.getElementById("btnGuardar").disabled = true;
                 
           let formData = new FormData();
-          formData.append('destinop', destinop);
-          formData.append('fechap', fechap);
-          formData.append('necesidadp', necesidadp);
-          formData.append('id', id);
+            formData.append('destinop', destinop);
+            formData.append('fechap', fechap);
+            formData.append('necesidadp', necesidadp);
+            formData.append('id', id);
+            formData.append('todelete[]', todelete);
 
-          for(var a = 0; a< material_id.length; a++){
+          for(var a = 0; a< cantidades.length; a++){
             formData.append('cantidad[]', cantidades[a]);
             formData.append('descripcion[]', descripciones[a]);
             formData.append('unidadmedida[]', unidadmedidas[a]);
-            formData.append('id[]', iddet[a]);
-            }    
-          
+            formData.append('iddet[]', iddet[a]);
+            }
 
           axios.post('/admin/update_requisicion', formData, {  
           })
@@ -473,13 +477,14 @@ function abrirModalEditar(id){
               toastr.error('Error', 'Datos incorrectos!');               
           }); 
     }
+
 // mensaje cuando se agrega una nueva requisicion
 function mensajeResponse3(valor){
     if(valor.data.success == 1){
-      toastr.success('Guardado', 'Reuquisicion Agregada exitosamente!');
+      toastr.success('Guardado', 'Requisicion Agregada exitosamente!');
       $('#modalAgregarReq').modal('hide'); 
     }else if(valor.data.success == 2){
-      toastr.error('Error', 'Partida NO guardada!');
+      toastr.error('Error', 'Requisicion NO guardada!');
     }else{
     // error en validacion en servidor
     toastr.error('Error', 'Datos incorrectos!');
@@ -488,10 +493,10 @@ function mensajeResponse3(valor){
 // mensaje por edicion de partida
 function mensajeResponse4(valor){
     if(valor.data.success == 1){
-      toastr.success('Guardado', 'Partida actualizada exitosamente!');
+      toastr.success('Guardado', 'Requisicion actualizada exitosamente!');
       $('#modalEditar').modal('hide'); 
     }else if(valor.data.success == 2){
-      toastr.error('Error', 'Partida NO guardada!');
+      toastr.error('Error', 'Requisicion NO guardada!');
     }else{
     // error en validacion en servidor
     toastr.error('Error', 'Datos incorrectos!');
@@ -528,9 +533,8 @@ function mensajeResponse4(valor){
                     nFilas = nFilas - 1;
                     //agrega las filas dinamicamente
                     var data = '<tr id="'+(nFilas+1)+'"><td><input id="cantidad'+(nFilas+1)+'" name="cantidad[]" class="form-control" type="number" step="any" value="'+$('#mcantidad').val()+'"></td>\n\
-                                                        <td><input id="unidadmedida'+(nFilas+1)+'" name="unidadmedida[]" class="form-control" type="text" value="'+$('#munidadmedida').val()+'">\n\
-                                                        </td>\n\
                                                         <td><input id="descripcion'+(nFilas+1)+'" name="descripcion[]" type="text" class="form-control" value="'+$('#mdescripcion').val()+'"></td>\n\
+                                                        <td><input id="unidadmedida'+(nFilas+1)+'" name="unidadmedida[]" class="form-control" type="text" value="'+$('#munidadmedida').val()+'"></td>\n\
                                                         <td><button class="btn btn-block btn-danger btn-xs" id="delete">Borrar</button></td></tr>';    
                     if (quemodal == 2){
                       $("#matrizpar tbody").append(data); 
@@ -540,11 +544,11 @@ function mensajeResponse4(valor){
                     $('#modalAgregarReq').modal('hide');
                 });                
 
-                $("#matriz tbody").on("click", "#delete", function (ev) {
-                  //elimino la fila
-                  var $currentTableRow = $(ev.currentTarget).parents('tr')[0];
+                $("#matriz tbody").on("click", "#delete", function (ev) {  
+                      var $currentTableRow = $(ev.currentTarget).parents('tr')[0];
+                      //elimino la fila
                       $currentTableRow.remove();
-                });
-              });
-   </script>
+                    });
+                  });
+      </script>
 @stop

@@ -200,6 +200,12 @@
                   <p>Proveedores</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a style="margin-left: 15px;" href="{{ url('/admin/load_admin') }}" target="frameprincipal" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Administadores</p>
+                </a>
+              </li>
             </ul>
           </li>
          

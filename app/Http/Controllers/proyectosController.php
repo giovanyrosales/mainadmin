@@ -73,8 +73,8 @@ class proyectosController extends Controller
     $proyecto = DB::table('proyecto')->where('id', $dato->id)->first();
     $bitacoras = DB::table('bitacora')->where('proyecto_id', $dato->id)->get();
     $requisiciones = DB::table('requisicion')->where('proyecto_id', $dato->id)->get();
-    $materiales = materiales::all();
-     return view('backend.paginas.Ver_proyecto',compact('proyecto','bitacoras','requisiciones', 'materiales'));
+    //$materiales = materiales::all();
+     return view('backend.paginas.Ver_proyecto',compact('proyecto','bitacoras','requisiciones'));
  }
     // Actualizar Proyecto
 public function update_proyecto(Request $request){
@@ -259,6 +259,16 @@ public function update_proyecto(Request $request){
                     
                         DB::table('requisicion')->where('id', '=', $request->id)->update(['destino' => $request->destinop,
                         'necesidad' => $request->necesidadp ]);
+
+                        //si se eliminaron filas de la requisicion
+                        if(count($request->todelete) > 0){
+                            for ($i = 0; $i < count($request->todelete); $i++) {
+                                    if($datos = DB::table('det_requisicion')->where('id', $request->todelete[$i])->first()){
+                                        // borrar una fuente de financiamiento
+                                        DB::table('det_requisicion')->where('id', $request->todelete[$i])->delete();
+                                    }
+                                }
+                        }
                         
                         for ($i = 0; $i < count($request->cantidad); $i++) {
                            if($det_requisicion = DB::table('det_requisicion')->where('id', $request->iddet[$i])->first()){
@@ -266,21 +276,20 @@ public function update_proyecto(Request $request){
                                 'descripcion' => $request->descripcion[$i],
                                 'unidadmedida' => $request->unidadmedida[$i]]);
                            }else{
-                                $det_requisicion = deta_partida::insertGetId([    
+                                $det_requisicion = deta_requisicion::insertGetId([    
                                 'requisicion_id'=>$requisicion->id,                            
                                 'cantidad'=>$request->cantidad[$i],
                                 'unidadmedida'=>$request->unidadmedida[$i],
                                 'descripcion'=>$request->descripcion[$i]]);
                                 }
-                        }
-                        
+                        }                        
                         return [
                             'success' => 1 // datos guardados correctamente
                         ];                    
                     }
                 }else{
                     return [
-                        'success' => 3 //partida no encontrado
+                        'success' => 3 //requisicion no encontrado
                     ];
                 }
         }
