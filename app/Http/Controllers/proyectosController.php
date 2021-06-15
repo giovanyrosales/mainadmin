@@ -21,6 +21,10 @@ use App\requisicion;
 use App\deta_requisicion;
 use App\bitfotos;
 use App\materiales_proy;
+use App\cotizacion;
+use App\det_cotizacion;
+use App\proveedor;
+
 
 
 
@@ -293,5 +297,209 @@ public function update_proyecto(Request $request){
                     ];
                 }
         }
+//-----------efra get requisiciones onlist of id-----------//
+        
+public function get_requisiciones_on_list(Request $request){
+        
+    if($items = DB::table('det_requisicion')->wherein('id', $request->lista)->get()){
+        
+        return  $items;
+    }else{
+        return [
+            'success' => 2 //ningun item encontrado
+        ];
+    }
+}
 
+/******************************Cotizaciones*/
+
+/****************************Procesar Cotizaciones*/
+public function procesar_cotizacion(Request $request){ 
+    if($request->isMethod('post')){
+        if($cotizacion = DB::table('cotizacion')->where('id', $request->cotizacion_id)->first()){                        
+            
+                DB::table('cotizacion')->where('id', '=', $request->cotizacion_id)->update(['estado' => $request->estado]);
+                
+                return [
+                    'success' => 1 // datos guardados correctamente
+                ];                    
+            }
+        }else{
+            return [
+                'success' => 3 //Cotizacion no encontrada
+            ];
+        }
+}
+
+/****************************Actualizar Cotizaciones*/
+public function update_cotizacion(Request $request){ 
+    if($request->isMethod('post')){
+        if($cotizacion = DB::table('cotizacion')->where('id', $request->cotizacion_id)->first()){                        
+            
+                DB::table('cotizacion')->where('id', '=', $request->cotizacion_id)->update(['fecha' => $request->fecha]);
+                
+                for ($i = 0; $i < count($request->cantidad); $i++) {
+
+                   if($det_cotizacion = DB::table('det_cotizacion')->where('id', $request->detallecotid[$i])->first()){
+                        DB::table('det_cotizacion')->where('id', '=', $request->detallecotid[$i])
+                        ->update([
+                            'cantidad' => $request->cantidad[$i],
+                            'descripcion' => $request->descripcion[$i],
+                            'preciounit' => $request->preciounitario[$i],
+                            'cod_presup' => $request->codpresup[$i]
+                        ]);
+                   }else{
+                            return [
+                                'success' => 2 // detalles no encontrados
+                            ];  
+                        }
+                }
+                
+                return [
+                    'success' => 1 // datos guardados correctamente
+                ];                    
+            }
+        }else{
+            return [
+                'success' => 3 //Cotizacion no encontrada
+            ];
+        }
+}
+
+
+/****************************Ver Cotizaciones*/
+public function ver_cotizacion(Request $request){ 
+        if($cotizacion = DB::Table('cotizacion')
+                                ->join('proveedores', 'cotizacion.proveedor_id', '=', 'proveedores.id')
+                                ->join('requisicion', 'cotizacion.requisicion_id', '=', 'requisicion.id')
+                                ->join('proyecto', 'requisicion.proyecto_id', '=', 'proyecto.id')
+                                ->where('cotizacion.id', $request->id)
+                                ->select('cotizacion.*', 'proveedores.nombre as proveedor_nombre', 'proyecto.codigo as proyecto_cod')
+                                ->first()){
+            $detcotizacion = DB::table('det_cotizacion')->where('cotizacion_id', $cotizacion->id)->get();
+           
+            return view('backend.paginas.CotizacionesVerEditar',compact('cotizacion' ,'detcotizacion'));
+        }else{
+            return [
+                'success' => 2 // Cotizacion no encontrado                   
+            ];
+        }
+    return view('backend.paginas.CotizacionVerEditar',compact('cotizaciones_pendientes'));
+}
+
+/****************************Cargar Cotizaciones Pendientes */
+public function load_cotizaciones_pendientes(){ 
+    $cotizaciones_pendientes = DB::table('cotizacion')
+    ->join('proveedores', 'cotizacion.proveedor_id', '=', 'proveedores.id')
+    ->join('requisicion', 'cotizacion.requisicion_id', '=', 'requisicion.id')
+    ->join('proyecto', 'requisicion.proyecto_id', '=', 'proyecto.id')
+    ->select('cotizacion.*', 'proveedores.nombre as proveedor_nombre', 'proyecto.codigo as proyecto_cod')
+    ->where('cotizacion.estado', '=', '0')
+    ->get();
+    return view('backend.paginas.CotizacionesPendientes',compact('cotizaciones_pendientes'));
+
+}
+public function load_cotizaciones_procesadas(){ 
+    $cotizaciones_procesadas = DB::table('cotizacion')
+    ->join('proveedores', 'cotizacion.proveedor_id', '=', 'proveedores.id')
+    ->join('requisicion', 'cotizacion.requisicion_id', '=', 'requisicion.id')
+    ->join('proyecto', 'requisicion.proyecto_id', '=', 'proyecto.id')
+    ->select('cotizacion.*', 'proveedores.nombre as proveedor_nombre', 'proyecto.codigo as proyecto_cod')
+    ->where('cotizacion.estado', '!=', '0')
+    ->get();
+    return view('backend.paginas.CotizacionesProcesadas',compact('cotizaciones_procesadas'));
+
+}
+public function guardar_cotizacion(Request $request){
+    if($request->isMethod('post')){  
+        $regla = array( 
+            'destino' => 'required',     
+            'fecha' => 'required',
+            'necesidad' => 'required',
+            'proveedor_id' => 'required',
+            'requisicion_id' => 'required',
+            'estado' => 'required'
+        );
+        $mensaje = array(
+            'destino.required' => 'Proyecto_id es requerido',
+            'fecha.required' => 'Fecha es requerida',
+            'proveedor_id.required' => 'Proveedor_id es requerido',
+            'requisicion_id.required' => 'Requisicion_id es requerido',
+            'estado.required' => 'Estado es requerido'
+        );
+        $validar = Validator::make($request->all(), $regla, $mensaje );
+        if ($validar->fails())
+        {
+            return [
+                'success' => 0, 
+                'message' => $validar->errors()->all()
+            ];
+        }
+        $nuevacotizacion = cotizacion::insertGetId([
+            'destino'=>$request->destino,
+            'fecha'=>$request->fecha,
+            'necesidad'=>$request->necesidad,
+            'proveedor_id'=>$request->proveedor_id,
+            'requisicion_id'=>$request->requisicion_id,
+            'estado' => $request->estado    
+        ]); 
+        if($nuevacotizacion){ 
+            $cotizacion_id = DB::getPdo()->lastInsertId();
+            for ($i = 0; $i < count($request->unidadmedida); $i++) {
+                $detalle_cotizacion = det_cotizacion::insertGetId([
+                'cantidad'=>$request->cantidad[$i],
+                'unidadmedida'=>$request->unidadmedida[$i],
+                'descripcion'=>$request->descripcion[$i],
+                'preciounit'=>$request->preciounitario[$i],
+                'cod_presup'=>$request->codpresup[$i],
+                'cotizacion_id'=>$cotizacion_id
+                ]);
+                $affected = DB::table('det_requisicion')->where('id', $request->detallereqid[$i])->update(['estado' => "1"]);
+
+             }
+
+            if($detalle_cotizacion){               
+                return [
+                    'success' => 1,
+                    'cotizacion_id' => $cotizacion_id// inserccion de detalles satisfactoria
+                ];
+            }else{
+                return [
+                    'success' => 2 // error de inserccion de detalles cotizacion
+                ];
+            }
+        }else{
+            return [
+                'success' => 2 // error de inserccion de cotizacion
+            ];
+        }
+ 
+                  
+    }
+
+}
+public function crear_cotizacion_vista(Request $request){
+    if ($request->isMethod('get')){
+        if($requisicion = DB::Table('requisicion')->where('id', $request->id)->first()){
+            if($requisicion_det = DB::table('det_requisicion')->where('requisicion_id', $requisicion->id)->where('estado','0' )->get()){
+                if($proveedores = proveedor::all()){
+                    
+                    return view('backend.paginas.CotizacionesCrearCotizacion', compact('requisicion','requisicion_det','proveedores'));             
+                }else {
+                    return [
+                        'success' => 2 // No existen proveedores                  
+                    ]; 
+                }
+            }else {
+                return [
+                    'success' => 2 // Detalles de requisicion no encontrados                  
+                ]; 
+            }
+        }else{
+            return [
+                'success' => 2 // Requisicion no encontrada                  
+            ]; 
+        }
+    }
+}
 }

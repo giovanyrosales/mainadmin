@@ -103,6 +103,8 @@
                     <button type="button" class="btn btn-danger btn-xs" onclick="EliminarRequisicion({{ $req->id }})">
                       <i class="fas fa-trash" title="Editar"></i>&nbsp; Borrar
                     </button>
+                    <a class="btn btn-warning btn-xs" href="{{ url('/admin/crear_cotizacion_vista/'.$req->id ) }}" target="frameprincipal">
+                  <i class="fa fa-eye" title="Editar"></i>&nbsp; Cotizar </a>
                   </center>                                                                                                   
                   </td>                    
                 </tr>

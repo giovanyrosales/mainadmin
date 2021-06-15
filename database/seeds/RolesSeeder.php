@@ -24,6 +24,9 @@ class RolesSeeder extends Seeder
        // UACI
        $role1 = Role::create(['name' => 'uaci']);
        $role1->givePermissionTo('todos');
+       // UACI
+       $role4 = Role::create(['name' => 'jefeuaci']);
+       $role4->givePermissionTo('todos');
        //PRESUPUESTO
        $role2 = Role::create(['name' => 'presupuesto']);
        $role2->givePermissionTo('todos');
@@ -55,9 +58,17 @@ class RolesSeeder extends Seeder
            'password' => bcrypt('giovax'),
            'telefono' => '75335897'
        ]);
+       $user4 = User::create([
+        'nombre' => 'Giovany',
+        'apellido' => 'Rosales',
+        'usuario' => 'jefeuaci',            
+        'password' => bcrypt('giovax'),
+        'telefono' => '75335897'
+    ]);
      
        $user1->assignRole($role1);
        $user2->assignRole($role2);
        $user3->assignRole($role3);
+       $user4->assignRole($role4);
     }
 }

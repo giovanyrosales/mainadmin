@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
             Route::post('admin/update_requisicion', 'proyectosController@update_requisicion');
 
             Route::get('print-bit/{id}', [ 'as' => 'pdf.bit', 'uses' => 'PdfController@pdf_bitacora' ]);
+             //Ruta que devuelve requisiciones en base array de ID (Efra)
+             Route::post('admin/get_requisiciones_on_list', 'proyectosController@get_requisiciones_on_list');
 
          //ADMINISTRACION --> CUENTAS BOLSON
             Route::get('admin/bolsones', 'bolsonController@load_bolsones');
@@ -109,6 +111,23 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
            Route::post('admin/update_areagestion', 'configController@update_areagestion');
            Route::post('admin/delete_areagestion', 'configController@delete_areagestion');
 
+           //COTIZACIONES
+
+            //Cargar Cotizaciones
+            Route::get('admin/load_cotizaciones_pendientes', 'proyectosController@load_cotizaciones_pendientes');
+            Route::get('admin/load_cotizaciones_procesadas', 'proyectosController@load_cotizaciones_procesadas');
+            Route::get('admin/procesar_cotizaciones', 'proyectosController@load_cotizaciones_pendientes');
+            
+
+            //Crear Cotizaciones
+            Route::get('admin/crear_cotizacion_vista/{id}','proyectosController@crear_cotizacion_vista');
+            Route::post('admin/guardar_cotizacion', 'proyectosController@guardar_cotizacion');
+            Route::post('admin/update_cotizacion', 'proyectosController@update_cotizacion');
+
+            //Guardar Cotizaciones
+            Route::get('admin/ver_cotizacion/{id}', 'proyectosController@ver_cotizacion');
+            Route::post('admin/procesar_cotizacion', 'proyectosController@procesar_cotizacion');
+            
            //Generacion de PDFs
            //pdf reforma_apertura
            Route::get('admin/pdf_reforma_apertura/{id}', 'PdfController@pdf_reforma_apertura');

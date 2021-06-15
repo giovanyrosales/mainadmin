@@ -63,20 +63,40 @@
             </ul>
           </li>
           <li class="nav-item has-treeview">
-            <a href="{{ url('/admin/proyectos') }}" target="frameprincipal" class="nav-link">
-              <i class="nav-icon fas fa-list"></i>
-              <p>
-              Requisiciones
-              </p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="{{ url('/admin/proyectos') }}" target="frameprincipal" class="nav-link">
-              <i class="nav-icon fas fa-list"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tasks"></i>
               <p>
               Cotizaciones
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+            <!--@hasrole('uaci')-->
+              <li class="nav-item">
+                <a style="margin-left: 15px;" href="{{ url('/admin/load_cotizaciones_pendientes') }}" target="frameprincipal" class="nav-link">
+                  <i class="far fa-list-alt nav-icon"></i>
+                  <p>Cotizacion Pendientes</p>
+                </a>
+              </li>
+            <!-- @endhasrole-->
+            <!--@hasrole('uaci|jefeuaci')-->
+              <li class="nav-item">
+                <a style="margin-left: 15px;" href="{{ url('/admin/load_cotizaciones_procesadas') }}" target="frameprincipal" class="nav-link">
+                  <i class="far fa-list-alt nav-icon"></i>
+                  <p>Cotizacion Procesadas</p>
+                </a>
+              </li>
+            <!-- @endhasrole-->
+            <!--@hasrole('jefeuaci')-->
+              <li class="nav-item">
+                <a style="margin-left: 15px;" href="{{ url('/admin/procesar_cotizaciones') }}" target="frameprincipal" class="nav-link">
+                  <i class="far fa-file nav-icon"></i>
+                  <p>Procesar Cotizaciones</p>
+                </a>
+              </li>
+            <!-- @endhasrole-->
+              
+            </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="{{ url('/admin/proyectos') }}" target="frameprincipal" class="nav-link">
