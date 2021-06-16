@@ -39,16 +39,12 @@ public function get_proveedor(Request $request){
   
        $regla = array( 
            'nombre' => 'required',           
-           'telefono' => 'required',
-           'nit' => 'required',
-           'nrc' => 'required'
+           'telefono' => 'required'
             );
 
        $mensaje = array(
            'nombre.required' => 'Nombre requerido',
-           'telefono.required' => 'telefono requerido',
-           'nit.required' => 'nit requerido',
-           'nrc.required' => 'nrc requerido'
+           'telefono.required' => 'telefono requerido'
            );
 
        $validar = Validator::make($request->all(), $regla, $mensaje );

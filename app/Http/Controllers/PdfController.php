@@ -97,16 +97,5 @@ class PdfController extends Controller
         //return view('backend.paginas.Hemo',compact('data'));
     }
 
-     //pdf de orden de compra
-     public function pdf_orden(Request $request)
-     {
-         $orden = DB::table('orden')->where('id',  $request->id)->first();
-         $requisicion = DB::table('requisicion')->where('id',  $orden->requisicion_id)->get();
-         $cotizacion = DB::table('cotizacion')->where('id',  $orden->cotizacion_id)->get();
- 
-         $pdf = PDF::loadView('backend.reportes.orden_compra', compact('orden', 'requisicion','cotizacion'));
-         $pdf->setPaper('letter', 'portrait')->setWarnings(false);
-         return $pdf->stream('Orden_Compra.pdf');
-         //return view('backend.paginas.Hemo',compact('data'));
-     }
+     
 }

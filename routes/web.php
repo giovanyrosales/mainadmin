@@ -128,16 +128,22 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
             Route::get('admin/ver_cotizacion/{id}', 'proyectosController@ver_cotizacion');
             Route::post('admin/procesar_cotizacion', 'proyectosController@procesar_cotizacion');
             
+            
+            //ORDENES
+            Route::get('admin/load_orden', 'OrdenController@load_orden');
+            Route::post('admin/get_cotizacion', 'proyectosController@get_cotizacion');
+            Route::post('admin/add_orden', 'OrdenController@add_orden');
+            Route::post('admin/get_orden', 'OrdenController@get_orden');
+            Route::post('admin/update_orden', 'OrdenController@update_orden');
+            Route::post('admin/delete_orden', 'OrdenController@delete_orden');
+
            //Generacion de PDFs
            //pdf reforma_apertura
            Route::get('admin/pdf_reforma_apertura/{id}', 'PdfController@pdf_reforma_apertura');
            Route::get('pdf_rep_comprasal/{id}', 'PdfController@pdf_rep_comprasal');
 
            //PDF Orden de Compra
-            Route::get('create-item1/{id}', [
-                'as' => 'pdf.orden.create', 
-                'uses' => 'PdfController@pdf_orden'
-            ]);
+           Route::get('admin/pdf_orden/{id}', 'OrdenController@pdf_orden');
 
 
     //INFORMACION DE USUARIOS

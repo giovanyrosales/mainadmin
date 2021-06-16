@@ -24,6 +24,7 @@ use App\materiales_proy;
 use App\cotizacion;
 use App\det_cotizacion;
 use App\proveedor;
+use App\admin_contrato;
 
 
 
@@ -407,7 +408,9 @@ public function load_cotizaciones_procesadas(){
     ->select('cotizacion.*', 'proveedores.nombre as proveedor_nombre', 'proyecto.codigo as proyecto_cod')
     ->where('cotizacion.estado', '!=', '0')
     ->get();
-    return view('backend.paginas.CotizacionesProcesadas',compact('cotizaciones_procesadas'));
+    //para cargar los administradores de contrato
+    $admins_contrato = admin_contrato::all();
+    return view('backend.paginas.CotizacionesProcesadas',compact('cotizaciones_procesadas','admins_contrato'));
 
 }
 public function guardar_cotizacion(Request $request){
@@ -502,4 +505,20 @@ public function crear_cotizacion_vista(Request $request){
         }
     }
 }
+// get cotizacoin para generar orden
+public function get_cotizacion(Request $request){
+    if($request->isMethod('post')){    
+
+        if($datos = DB::Table('cotizacion')->where('id', $request->id)->first()){
+            return [
+                'success' => 1,
+                'cotizacion' => $datos
+            ];
+        }else{
+            return [
+                'success' => 2 // Cotizacion no encontrado                   
+            ];
+            }
+        }
+    }
 }

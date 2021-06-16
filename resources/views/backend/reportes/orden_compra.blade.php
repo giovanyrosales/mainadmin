@@ -21,7 +21,7 @@ input {
 <table  class="table-head" style="margin-top: -10px;">
   <tr>
     <td width="20%"><img style="margin-top: -20px; "src="{{ asset('/images/logo.png') }}" width="50px" height="50px"></td>
-    <td width="80%" style="text-align:center; margin-left: -10px;"><h3>REPROGRAMACION PRESUPUESTARIA</h3>
+    <td width="80%" style="text-align:center; margin-left: -10px;"><h3>ORDEN DE COMPRA</h3>
 	<br><br>
 	</td>
   </tr>
@@ -64,27 +64,7 @@ input {
 		</td>
 	
 	</tr>
-    <tr>
-		<td colspan="2">
-			<label style="font-weight: bold; vertical-align:middle;">Tipo:</label>
-			<input type="text" style="width:70%;" value="">
-		</td>
-	
-	</tr>
-    <tr>
-		<td colspan="2">
-			<label style="font-weight: bold; vertical-align:middle;">Naturaleza:</label>
-			<input type="text" style="width:70%;" value="">
-		</td>
-	
-	</tr>
-    <tr>
-		<td colspan="2">
-			<label style="font-weight: bold; vertical-align:middle;">Fase:</label>
-			<input type="text" style="width:70%;" value="">
-		</td>
-	
-	</tr>
+    
     <tr>
 		<td colspan="2">
 			<label style="font-weight: bold; vertical-align:middle;">Fecha de Inicio:</label>
@@ -115,60 +95,4 @@ input {
 	</td>
 </tr>
 </table>
-<table  class="table-head" style="margin-top: -10px;">
-  <tr>
-    <td width="100%" style="text-align:center;"><h3>CIFRAS PRESUPUESTARIAS A REPROGRAMAR:</h3>
-	<br><br>
-	</td>
-  </tr>
-</table>
-<table  class="table-head" style="margin-top: -10px;">
-  <tr>
-    <td width="100%" style="text-align:center;"><h3>Cuentas de presupuesto que se afectan:</h3>
-	<br><br>
-	</td>
-  </tr>
-</table>
-<table  class="table-head" style="margin-top: -10px;">
-  <tr>
-    <td width="15%" style="text-align:center;">COD</td>
-    <td width="45%" style="text-align:center;">CUENTA</td>
-    <td width="20%" style="text-align:center;">DISMINUYE</td>
-    <td width="20%" style="text-align:center;">AUMENTA</td>
-  </tr>
-  <tr>
-  	<td width="15%" style="text-align:center;"></td>
-    <td width="45%" style="text-align:center;"></td>
-    <td width="20%" style="text-align:center;"></td>
-    <td width="20%" style="text-align:center;"></td>
-  </tr>
-</table>
-<table  class="table-head" style="margin-top: -10px;">
-  <tr>
-    <td width="100%" style="text-align:center;"><h3>Cuentas de presupuesto que se refuerzan:</h3>
-	<br><br>
-	</td>
-  </tr>
-</table>
-<table  class="table-head" style="margin-top: -10px;">
-  <tr>
-    <td width="15%" style="text-align:center;">COD</td>
-    <td width="45%" style="text-align:center;">CUENTA</td>
-    <td width="20%" style="text-align:center;">DISMINUYE</td>
-    <td width="20%" style="text-align:center;">AUMENTA</td>
-  </tr>
-  
-  <tr>
-  <td width="15%" style="text-align:center;"></td>
-    <td width="45%" style="text-align:center;"></td>
-    <td width="20%" style="text-align:center;"></td>
-    <td width="20%" style="text-align:center;"></td>
-  </tr>
 
-  <tr>
-  <td width="15%" style="text-align:center;"></td>
-    <td width="45%" style="text-align:center;">TOTAL</td>
-    <td width="20%" style="text-align:center;"></td>
-    <td width="20%" style="text-align:center;"></td>
-  </tr>
-</table>
