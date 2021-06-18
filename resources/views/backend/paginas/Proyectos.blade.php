@@ -333,6 +333,7 @@ function abrirModalEditar(id){
           $('#modalEditar').modal('show');
           $('#idU').val(response.data.proyecto.id);
           $('#nombre').val(response.data.proyecto.nombre);   
+          $('#codigo').val(response.data.proyecto.codigo);   
           $('#ubicacion').val(response.data.proyecto.ubicacion);   
           $('#naturaleza').val(response.data.proyecto.naturaleza);   
           $('#areagestion').val(response.data.proyecto.areagestion);   

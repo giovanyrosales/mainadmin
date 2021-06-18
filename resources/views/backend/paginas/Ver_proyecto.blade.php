@@ -98,13 +98,13 @@
                   <td>
                   <center>
                   <a class="btn btn-warning btn-xs" href="{{ url('/admin/crear_cotizacion_vista/'.$req->id ) }}" target="frameprincipal">
-                  <i class="fa fa-eye" title="Editar"></i>&nbsp; Cotizar </a>
+                  <i class="fa fa-laptop" title="Editar"></i>&nbsp; Cotizar </a>
                     <button type="button" class="btn btn-info btn-xs" onclick="abrirModalEditar({{ $req->id }})">
                       <i class="fas fa-pencil-alt" title="Editar"></i>&nbsp; Editar
                     </button>
-                    <button type="button" class="btn btn-danger btn-xs" onclick="EliminarRequisicion({{ $req->id }})">
+                    <!--<button type="button" class="btn btn-danger btn-xs" onclick="EliminarRequisicion({{ $req->id }})">
                       <i class="fas fa-trash" title="Editar"></i>&nbsp; Borrar
-                    </button>
+                    </button>-->
                   </center>                                                                                                   
                   </td>                    
                 </tr>

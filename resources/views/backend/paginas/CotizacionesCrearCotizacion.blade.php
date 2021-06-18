@@ -35,12 +35,12 @@
             <div class="row">
               <div class="col-md-5">
                 <div class="form-group">
-                  <label for="exampleInputEmail1" >Destino</label>
+                  <label >Destino</label>
                   <input type="text" value="{{ $requisicion-> destino }}" class="form-control" id="destino" disabled>
                   <input id="requisicionid"type="hidden" class="form-control" value="{{ $requisicion-> id }}">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1" >Necesidad</label>
+                  <label >Necesidad</label>
                   <textarea type="textbox" class="form-control" id="necesidad" rows="3" disabled>{{ $requisicion-> necesidad }}</textarea>
                 </div>
               </div>
@@ -48,7 +48,7 @@
               </div>
               <div class="col-md-5">
                 <div class="form-group">
-                  <label for="exampleInputEmail1" >Proveedor</label>
+                  <label >Proveedor</label>
                   <select class="custom-select" id="proveedor">
                   @foreach($proveedores as $proveedor)
                     <option value="{{ $proveedor->id }}">{{ $proveedor->nombre }}</option>
@@ -96,12 +96,10 @@
             </div>
             <!-- boton generar cotizacion -->
             <div class="row">
-              <div class="col-md-10">
-              </div>
-              <div class="col-md-2">
+              <div class="col-md-12">
                 <button type="button" id="GenerarCotizacion" class="btn btn-primary float-right mt-3" >Generar Cotizacion</button>
-              </div>
-            </div>
+                <button type="button" onclick="location.href='javascript: history.go(-1)'" class="btn float-left btn-default mt-3">Cancelar</button>
+              </div></div>
             <!-- Modal Agregar Cotizacion -->
             <div class="modal fade" id="modalAgregarCotizacion" tabindex="-1">
                 <div class="modal-dialog modal-lg">
@@ -162,17 +160,17 @@
 
   <script>
 //*********************** Para darle tiempo al toaster al recargar la pagina */
-toastr.options.timeOut = 750;
+    toastr.options.timeOut = 750;
     toastr.options.fadeOut = 750;
     toastr.options.onHidden = function(){
       // this will be executed after fadeout, i.e. 2secs after notification has been show
      window.location.reload();
     }; 
+
 //************************************************************************** */
 </script>
 
 <script type="text/javascript">
-//Script para Organizar la tabla de datos
     
     $(document).ready(function() {
       $('#mySideToSideSelect').multiselect();
@@ -251,13 +249,27 @@ toastr.options.timeOut = 750;
             
             removeOptionsFromSelect(document.getElementById('mySideToSideSelect_to'));
             if (document.getElementById('mySideToSideSelect').innerHTML.trim() !== ''){
-              console.log(document.getElementById('mySideToSideSelect'));
+              //console.log(document.getElementById('mySideToSideSelect'));
+              toastr.success('Cotizacion Guardada', 'Guardada exitosamente', {
+                timeOut: 1700,
+                preventDuplicates: true,
+            });
+                   
               $('#modalAgregarCotizacion').modal('toggle');  
             }else{
-              window.location.href = "/admin/load_cotizaciones_pendientes";
-              
+              var spinHandle = loadingOverlay().activate(); // activar loading
+              toastr.success('Cotizacion Guardada', 'Guardada exitosamente', {
+                timeOut: 1700,
+                preventDuplicates: true,
+                // Redirect 
+                onHidden: function() {
+                  window.location.href = '/admin/load_cotizaciones_pendientes';
+                }
+            });
+                    
+             
             }
-            console.log(response);
+            //console.log(response);
           })
           .catch(function (error) {
             console.log(error);

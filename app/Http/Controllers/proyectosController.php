@@ -405,9 +405,11 @@ public function load_cotizaciones_procesadas(){
     ->join('proveedores', 'cotizacion.proveedor_id', '=', 'proveedores.id')
     ->join('requisicion', 'cotizacion.requisicion_id', '=', 'requisicion.id')
     ->join('proyecto', 'requisicion.proyecto_id', '=', 'proyecto.id')
+    ->leftjoin('orden', 'cotizacion.id', '=', 'orden.cotizacion_id')
     ->select('cotizacion.*', 'proveedores.nombre as proveedor_nombre', 'proyecto.codigo as proyecto_cod')
-    ->where('cotizacion.estado', '!=', '0')
+    ->where('cotizacion.estado', '!=', '0')->where('orden.cotizacion_id','=', NULL)
     ->get();
+    
     //para cargar los administradores de contrato
     $admins_contrato = admin_contrato::all();
     return view('backend.paginas.CotizacionesProcesadas',compact('cotizaciones_procesadas','admins_contrato'));
@@ -464,16 +466,16 @@ public function guardar_cotizacion(Request $request){
             if($detalle_cotizacion){               
                 return [
                     'success' => 1,
-                    'cotizacion_id' => $cotizacion_id// inserccion de detalles satisfactoria
+                    'cotizacion_id' => $cotizacion_id// insercion de detalles satisfactoria
                 ];
             }else{
                 return [
-                    'success' => 2 // error de inserccion de detalles cotizacion
+                    'success' => 2 // error de insercion de detalles cotizacion
                 ];
             }
         }else{
             return [
-                'success' => 2 // error de inserccion de cotizacion
+                'success' => 2 // error de insercion de cotizacion
             ];
         }
  

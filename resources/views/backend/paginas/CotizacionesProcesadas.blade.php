@@ -65,9 +65,11 @@
                   <td>
                   <a class="btn btn-warning btn-xs" href="{{ url('/admin/ver_cotizacion/'.$datos->id ) }}" target="frameprincipal">
                   <i class="fa fa-eye" title="Editar"></i>&nbsp; Ver </a>
+                  <!--@hasrole('uaci')-->
                   <button type="button"  class="btn btn-info btn-xs " onclick="abrirModalGenerarOrden({{ $datos->id }})">
                       Generar Orden
                   </button>
+                  <!-- @endhasrole-->
                   </td>                    
                 </tr>
               @endforeach  

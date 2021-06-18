@@ -178,10 +178,17 @@ toastr.options.timeOut = 750;
 
       axios.post('/admin/procesar_cotizacion', formData )
         .then(function (response) {
-            window.location.href = "/admin/procesar_cotizaciones";
-            
-          
-          console.log(response);
+          var spinHandle = loadingOverlay().activate(); // activar loading
+          toastr.success('Procesada', 'Cotizacion procesada con exito', {
+                timeOut: 1700,
+                preventDuplicates: true,
+                // Redirect 
+                onHidden: function() {
+                  window.location.href = "/admin/procesar_cotizaciones";
+                }
+            });
+                  
+          //console.log(response);
         })
         .catch(function (error) {
           console.log(error);
@@ -221,10 +228,18 @@ toastr.options.timeOut = 750;
 
             axios.post('/admin/update_cotizacion', formData )
             .then(function (response) {
-                window.location.href = "/admin/load_cotizaciones_pendientes";
-                
+              var spinHandle = loadingOverlay().activate(); // activar loading
+              toastr.success('Actualizada', 'Cotizacion actualizada con exito', {
+                timeOut: 1700,
+                preventDuplicates: true,
+                // Redirect 
+                onHidden: function() {
+                  window.location.href = "/admin/load_cotizaciones_pendientes";
+                }
+            });
+                  
               
-              console.log(response);
+              //console.log(response);
             })
             .catch(function (error) {
               console.log(error);
