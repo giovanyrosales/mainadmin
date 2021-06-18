@@ -32,12 +32,9 @@ setlocale(LC_ALL,"es_ES");
 // 1 - Aprobada
 // 2 - Denegada
 
-date_default_timezone_set('America/El_Salvador');
-setlocale(LC_ALL,"es_ES");
+
 class OrdenController extends Controller
 {
-    
-
         // retornar Ordenes 
     public function load_orden(){
         //para cargar las ordenes
@@ -71,19 +68,12 @@ class OrdenController extends Controller
     public function pdf_orden(Request $request)
     {
         $orden = DB::table('orden')->where('id',  $request->id)->first();
-        $requisicion = DB::table('requisicion')->where('id',  $orden->requisicion_id)->first();
-        $cotizacion = DB::table('cotizacion')->where('id',  $orden->cotizacion_id)->first();
-        $proyecto =  DB::table('proyecto')->where('id',  $requisicion->proyecto_id)->first();
-        $proveedor =  DB::table('proveedores')->where('id',  $cotizacion->proveedor_id)->first();
-        $det_cotizacion = DB::table('det_cotizacion')->where('cotizacion_id',  $orden->cotizacion_id)->get();
-        $administrador = DB::table('admin_contrato')->where('id',  $orden->admin_contrato_id)->first();
-        
-        $fecha = strftime("%d-%B-%Y",strtotime($orden->fechaorden));
+        $requisicion = DB::table('requisicion')->where('id',  $orden->requisicion_id)->get();
+        $cotizacion = DB::table('cotizacion')->where('id',  $orden->cotizacion_id)->get();
 
-        $pdf = PDF::loadView('backend.reportes.orden_compra', compact('orden','cotizacion','proyecto','fecha','proveedor','det_cotizacion','administrador'));
+        $pdf = PDF::loadView('backend.reportes.orden_compra', compact('orden', 'requisicion','cotizacion'));
         $pdf->setPaper('letter', 'portrait')->setWarnings(false);
         return $pdf->stream('Orden_Compra.pdf');
-        //return view('backend.reportes.orden_compra', compact('orden','cotizacion','proyecto','fecha','proveedor','det_cotizacion','administrador'));
     }
 
     // agregar nueva Orden
