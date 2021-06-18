@@ -24,6 +24,9 @@ class RolesSeeder extends Seeder
        // UACI
        $role1 = Role::create(['name' => 'uaci']);
        $role1->givePermissionTo('todos');
+       // UACI
+       $role4 = Role::create(['name' => 'jefeuaci']);
+       $role4->givePermissionTo('todos');
        //PRESUPUESTO
        $role2 = Role::create(['name' => 'presupuesto']);
        $role2->givePermissionTo('todos');
@@ -34,30 +37,38 @@ class RolesSeeder extends Seeder
        User::truncate();
 
        $user1 = User::create([
-           'nombre' => 'Giovany',
-           'apellido' => 'Rosales',
+           'nombre' => 'Heidi',
+           'apellido' => 'Monzon',
            'usuario' => 'uaci',            
-           'password' => bcrypt('giovax'),
-           'telefono' => '75335897'
+           'password' => bcrypt('1234'),
+           'telefono' => '24027633'
        ]);
 
        $user2 = User::create([
-           'nombre' => 'Giovany',
-           'apellido' => 'Rosales',
+           'nombre' => 'Rina',
+           'apellido' => 'Tejada',
            'usuario' => 'presupuesto',            
-           'password' => bcrypt('giovax'),
-           'telefono' => '75335897'
+           'password' => bcrypt('1234'),
+           'telefono' => '24027665'
        ]);
        $user3 = User::create([
            'nombre' => 'Giovany',
            'apellido' => 'Rosales',
            'usuario' => 'ingenieria',            
-           'password' => bcrypt('giovax'),
+           'password' => bcrypt('1234'),
            'telefono' => '75335897'
        ]);
+       $user4 = User::create([
+        'nombre' => 'Heidi',
+        'apellido' => 'Chinchilla',
+        'usuario' => 'jefeuaci',            
+        'password' => bcrypt('1234'),
+        'telefono' => '24027621'
+    ]);
      
        $user1->assignRole($role1);
        $user2->assignRole($role2);
        $user3->assignRole($role3);
+       $user4->assignRole($role4);
     }
 }

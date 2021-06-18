@@ -47,8 +47,18 @@
                 </tr>
                 </thead>
                 <tbody>
-              @foreach($proyectos as $datos)  
-                <tr>
+              @foreach($proyectos as $datos)
+                @if($datos->estado == 2)  
+                <tr class="table-success">
+                  @elseif($datos->estado == 1)  
+                  <tr class="table-info">
+                  @elseif($datos->estado == 3)  
+                  <tr class="table-warning">
+                  @elseif($datos->estado == 4)  
+                  <tr class="table-secondary">
+                  @elseif($datos->estado == NULL)
+                  <tr>
+                @endif
                   <td>{{ $datos-> codigo }}</td>
                   <td>{{ $datos-> nombre }}</td>
                   <td>{{ $datos-> fechaini }}</td>
@@ -58,9 +68,6 @@
                   <i class="fa fa-eye" title="Editar"></i>&nbsp; Ver </a>
                   <button type="button" class="btn btn-info btn-xs" onclick="abrirModalEditar({{ $datos->id }})">
                     <i class="fas fa-pencil-alt" title="Editar"></i>&nbsp; Editar
-                    </button>
-                    <button type="button" class="btn btn-success btn-xs" onclick="abrirModalEliminar({{ $datos->id }})">
-                    <i class="fas fa-trash-alt" title="Imprimir"></i>&nbsp; Imprimir
                     </button>
                   </td>                    
                 </tr>
@@ -223,7 +230,7 @@
                       </div>
                     </div>
                     <div class="row">
-                    <div class="col-md-3">
+                      <div class="col-md-3">
                         <div class="form-group">
                           <label>Cuenta Bols&oacute;n:</label>
                           <select name="bolson_id" id="bolson_id" class="form-control bolson_id">
@@ -237,6 +244,27 @@
                         <div class="form-group">
                           <label>Monto de proyecto $:</label>
                           <input type="number" name="monto" id="monto"  class="form-control" step="any" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <hr>
+                          <label>Secci&oacute;n de UACI:</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-5">
+                        <div class="form-group">
+                        <label>Estado del Proyecto:</label>
+                          <select name="estado" id="estado" class="form-control">
+                            <option value="1">Priorizado</option>
+                            <option value="2">Iniciado</option>
+                            <option value="3">En Pausa</option>
+                            <option value="4">Finalizado</option>
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -305,6 +333,7 @@ function abrirModalEditar(id){
           $('#modalEditar').modal('show');
           $('#idU').val(response.data.proyecto.id);
           $('#nombre').val(response.data.proyecto.nombre);   
+          $('#codigo').val(response.data.proyecto.codigo);   
           $('#ubicacion').val(response.data.proyecto.ubicacion);   
           $('#naturaleza').val(response.data.proyecto.naturaleza);   
           $('#areagestion').val(response.data.proyecto.areagestion);   
@@ -319,7 +348,8 @@ function abrirModalEditar(id){
           $('#supervisor').val(response.data.proyecto.supervisor);   
           $('#encargado').val(response.data.proyecto.encargado);   
           $('#bolson_id').val(response.data.proyecto.bolson_id);   
-          $('#monto').val(response.data.proyecto.monto);   
+          $('#monto').val(response.data.proyecto.monto); 
+          $('#estado').val(response.data.proyecto.estado);   
         }else{ 
           toastr.error('Error', 'Proyecto no encontrado'); 
         }
@@ -433,9 +463,7 @@ function borrarServicio(){
         toastr.error('Error');               
   });
 }
-</script>
 
-<script type="text/javascript">
 //Script para Organizar la tabla de datos
     $(document).ready(function() {
       $('#example2').DataTable({

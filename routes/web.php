@@ -39,12 +39,14 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
             Route::post('admin/get_bitacora', 'proyectosController@get_bitacora');
             Route::post('admin/update_bitacora', 'proyectosController@update_bitacora');
 
-            //PARTIDAS DE PROYECTO
-            Route::post('admin/add_partida', 'proyectosController@add_partida');
-            Route::post('admin/get_partida', 'proyectosController@get_partida');
-            Route::post('admin/update_partida', 'proyectosController@update_partida');
+            //REQUISICIONES DE PROYECTO
+            Route::post('admin/add_requisicion', 'proyectosController@add_requisicion');
+            Route::post('admin/get_requisicion', 'proyectosController@get_requisicion');
+            Route::post('admin/update_requisicion', 'proyectosController@update_requisicion');
 
             Route::get('print-bit/{id}', [ 'as' => 'pdf.bit', 'uses' => 'PdfController@pdf_bitacora' ]);
+             //Ruta que devuelve requisiciones en base array de ID (Efra)
+             Route::post('admin/get_requisiciones_on_list', 'proyectosController@get_requisiciones_on_list');
 
          //ADMINISTRACION --> CUENTAS BOLSON
             Route::get('admin/bolsones', 'bolsonController@load_bolsones');
@@ -68,11 +70,18 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
            Route::post('admin/delete_material', 'materialesController@delete_material');
 
            //CONFIGURACIONES --> PROVEEDORES
-           Route::get('admin/load_proveedores', 'materialesController@load_proveedores');
-           Route::post('admin/add_proveedor', 'materialesController@add_proveedor');
-           Route::post('admin/get_proveedor', 'materialesController@get_proveedor');
-           Route::post('admin/update_proveedor', 'materialesController@update_proveedor');
-           Route::post('admin/delete_proveedor', 'materialesController@delete_proveedor');
+           Route::get('admin/load_proveedores', 'ProveedorController@load_proveedor');
+           Route::post('admin/add_proveedor', 'ProveedorController@add_proveedor');
+           Route::post('admin/get_proveedor', 'ProveedorController@get_proveedor');
+           Route::post('admin/update_proveedor', 'ProveedorController@update_proveedor');
+           Route::post('admin/delete_proveedor', 'ProveedorController@delete_proveedor');
+
+           //CONFIGURACIONES --> ADMINISTRADORES DE CONTRATO
+           Route::get('admin/load_admin', 'configController@load_admin');
+           Route::post('admin/add_admin', 'configController@add_admin');
+           Route::post('admin/get_admin', 'configController@get_admin');
+           Route::post('admin/update_admin', 'configController@update_admin');
+           Route::post('admin/delete_admin', 'configController@delete_admin');
 
            //CONFIGURACIONES --> Linea de trabajo
            Route::get('admin/load_linea', 'configController@load_linea');
@@ -102,10 +111,45 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
            Route::post('admin/update_areagestion', 'configController@update_areagestion');
            Route::post('admin/delete_areagestion', 'configController@delete_areagestion');
 
+           //COTIZACIONES
+
+            //Cargar Cotizaciones
+            Route::get('admin/load_cotizaciones_pendientes', 'proyectosController@load_cotizaciones_pendientes');
+            Route::get('admin/load_cotizaciones_procesadas', 'proyectosController@load_cotizaciones_procesadas');
+            Route::get('admin/procesar_cotizaciones', 'proyectosController@load_cotizaciones_pendientes');
+            
+
+            //Crear Cotizaciones
+            Route::get('admin/crear_cotizacion_vista/{id}','proyectosController@crear_cotizacion_vista');
+            Route::post('admin/guardar_cotizacion', 'proyectosController@guardar_cotizacion');
+            Route::post('admin/update_cotizacion', 'proyectosController@update_cotizacion');
+
+            //Guardar Cotizaciones
+            Route::get('admin/ver_cotizacion/{id}', 'proyectosController@ver_cotizacion');
+            Route::post('admin/procesar_cotizacion', 'proyectosController@procesar_cotizacion');
+            
+            
+            //ORDENES
+            Route::get('admin/load_orden', 'OrdenController@load_orden');
+            Route::post('admin/get_cotizacion', 'proyectosController@get_cotizacion');
+            Route::post('admin/add_orden', 'OrdenController@add_orden');
+            Route::post('admin/get_orden', 'OrdenController@get_orden');
+            Route::post('admin/update_orden', 'OrdenController@update_orden');
+            Route::post('admin/anular_orden', 'OrdenController@anular_orden');
+
            //Generacion de PDFs
            //pdf reforma_apertura
            Route::get('admin/pdf_reforma_apertura/{id}', 'PdfController@pdf_reforma_apertura');
            Route::get('pdf_rep_comprasal/{id}', 'PdfController@pdf_rep_comprasal');
+
+           //PDF Orden de Compra
+                //desde controlador
+           Route::get('admin/pdf_orden/{id}', 'OrdenController@pdf_orden');
+                //desde vista
+           Route::get('create-item1/{id}', [
+            'as' => 'pdf.orden.create', 
+            'uses' => 'OrdenController@pdf_orden'
+        ]);
 
 
     //INFORMACION DE USUARIOS

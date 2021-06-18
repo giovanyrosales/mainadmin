@@ -69,7 +69,7 @@ class PdfController extends Controller
             // Actualizar saldo de cuenta bolson.
             $nuevosaldo = floatval($bolson->saldo) - floatval($proyecto->monto);
             DB::table('bolson')->where('id', '=', $bolson->id)->update(['saldo' => $nuevosaldo ]);
-            DB::table('proyecto')->where('id', '=', $proyecto->id)->update(['estado' => "1"]);
+            DB::table('proyecto')->where('id', '=', $proyecto->id)->update(['estado' => "2"]);
         }
       $pdf = PDF::loadView('backend.reportes.reforma_apertura', compact('proyecto','materiales', 'cuenta', 'total', 'linean', 'fuentern', 'fuentefn', 'areagestionn'));
       $pdf->setPaper('letter', 'portrait')->setWarnings(false);
@@ -96,4 +96,6 @@ class PdfController extends Controller
         return $pdf->stream('Resultado_Examen.pdf');
         //return view('backend.paginas.Hemo',compact('data'));
     }
+
+     
 }

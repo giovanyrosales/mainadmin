@@ -10,6 +10,7 @@ use App\fuentef;
 use App\fuenter;
 use App\linea;
 use App\areagestion;
+use App\admin_contrato;
 
 class configController extends Controller
 {
@@ -38,6 +39,12 @@ class configController extends Controller
     $areasgestion = areagestion::all();
     $lineas = linea::all();
      return view('backend.paginas.AreasGestion',compact('areasgestion','lineas'));
+ }
+ // retornar Administradores de Contrato 
+ public function load_admin(){
+    //para cargar los administradores
+    $admins_contrato = admin_contrato::all();
+     return view('backend.paginas.Admins_contrato',compact('admins_contrato'));
  }
    // obtener info de una linea
    public function get_linea(Request $request){
@@ -96,7 +103,7 @@ class configController extends Controller
 
    }
 }
-    // editar linea de trabajo
+// editar linea de trabajo
 public function update_linea(Request $request){
 
     if($request->isMethod('post')){  
@@ -111,13 +118,14 @@ public function update_linea(Request $request){
                 return [
                     'success' => 1 // datos guardados correctamente
                 ];                    
-            }
+            
         }else{
             return [
                 'success' => 3 //linea de trabajo no encontrada
             ];
         }
     }
+}
       // eliminar una linea de trabajo
   public function delete_linea(Request $request){
     if($request->isMethod('post')){  
@@ -196,7 +204,7 @@ public function get_areagestion(Request $request){
 
    }
 }
-    // editar area de gestion
+// editar area de gestion
 public function update_areagestion(Request $request){
 
     if($request->isMethod('post')){  
@@ -211,13 +219,14 @@ public function update_areagestion(Request $request){
                 return [
                     'success' => 1 // datos guardados correctamente
                 ];                    
-            }
+            
         }else{
             return [
                 'success' => 3 //linea de trabajo no encontrada
             ];
         }
     }
+}
       // eliminar una area de gestion
   public function delete_areagestion(Request $request){
     if($request->isMethod('post')){  
@@ -308,13 +317,14 @@ public function update_fuentef(Request $request){
                 return [
                     'success' => 1 // datos guardados correctamente
                 ];                    
-            }
+            
         }else{
             return [
                 'success' => 3 //linea de trabajo no encontrada
             ];
         }
     }
+}
       // eliminar una area de gestion
   public function delete_fuentef(Request $request){
     if($request->isMethod('post')){  
@@ -408,13 +418,14 @@ public function update_fuenter(Request $request){
                 return [
                     'success' => 1 // datos guardados correctamente
                 ];                    
-            }
-        }else{
+        
+         }else{
             return [
                 'success' => 3 //fuente de recursos no encontrada
             ];
         }
     }
+}
       // eliminar una fuente de recursos
   public function delete_fuenter(Request $request){
     if($request->isMethod('post')){  
@@ -430,8 +441,103 @@ public function update_fuenter(Request $request){
             return [
                 'success' => 2 // fuenter no encontrada              
             ];
+            }
+        }
+    }
+    //**************************************************  Administradores de contrato ************************************/
+// obtener info de un administrador de contrato
+public function get_admin(Request $request){
+    if($request->isMethod('post')){    
+
+            if($datos = DB::Table('admin_contrato')->where('id', $request->id)->first()){
+                return [
+                    'success' => 1,
+                    'admin' => $datos
+                ];
+            }else{
+                return [
+                    'success' => 2 // administrador no encontrado                   
+                ];
+            }
+        }
+    }
+    // agregar nuevo administrador de contrato
+public function add_admin(Request $request){ 
+    if($request->isMethod('post')){  
+
+    $regla = array( 
+        'nombre' => 'required',           
+        'telefono' => 'required',
+            );
+
+    $mensaje = array(
+        'nombre.required' => 'Nombre requerido',
+        'telefono.required' => 'Telefono requerido'
+        );
+
+    $validar = Validator::make($request->all(), $regla, $mensaje );
+
+        if ($validar->fails())
+        {
+            return [
+                'success' => 0, 
+                'message' => $validar->errors()->all()
+            ];
+        }   
+
+            $crearadmin = admin_contrato::insertGetId([            
+                'nombre'=>$request->nombre,
+                'telefono'=>$request->telefono]); 
+
+        if($crearadmin){               
+            return [
+                'success' => 1
+            ];
+        }else{
+            return [
+                'success' => 2 //
+            ];
+            }
+
+        }
+    }
+    // editar administrador de contrato
+public function update_admin(Request $request){
+
+    if($request->isMethod('post')){  
+
+        // encontrar administrador de contrato
+        if($area = DB::table('admin_contrato')->where('id', $request->id)->first()){                        
+            
+                DB::table('admin_contrato')->where('id', '=', $request->id)->update(['nombre' => $request->nombre,'telefono' => $request->telefono]);
+                
+                return [
+                    'success' => 1 // datos guardados correctamente
+                ];                    
+            } else {
+            return [
+                'success' => 3 //administrador de contrato no encontrada
+            ];
+        }
+     }
+	}
+    // eliminar un admin de contrato
+  public function delete_admin(Request $request){
+    if($request->isMethod('post')){  
+
+        if($datos = DB::table('admin_contrato')->where('id', $request->id)->first()){
+            // borrar un admin
+            DB::table('admin_contrato')->where('id', $request->id)->delete();
+            
+            return [
+                'success' => 1 // admin eliminado  
+            ];
+        }else{
+            return [
+                'success' => 2 // admin no encontrado
+            ];
+            }
         }
     }
 }
 
-}

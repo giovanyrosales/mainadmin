@@ -22,12 +22,12 @@
       <div class="container-fluid">
         <div class="row mb-12">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Estadísticas de Uso de la Aplicacón</h1>
+            <h1 class="m-0 text-dark">Estadísticas de Uso de la Aplicación</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-              <li class="breadcrumb-item active">Estadísticas de Uso de la Aplicacón</li>
+              <li class="breadcrumb-item active">Estadísticas de Uso de la Aplicación</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
