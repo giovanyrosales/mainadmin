@@ -37,33 +37,33 @@ class RolesSeeder extends Seeder
        User::truncate();
 
        $user1 = User::create([
-           'nombre' => 'Giovany',
-           'apellido' => 'Rosales',
+           'nombre' => 'Heidi',
+           'apellido' => 'Monzon',
            'usuario' => 'uaci',            
-           'password' => bcrypt('giovax'),
-           'telefono' => '75335897'
+           'password' => bcrypt('1234'),
+           'telefono' => '24027633'
        ]);
 
        $user2 = User::create([
-           'nombre' => 'Giovany',
-           'apellido' => 'Rosales',
+           'nombre' => 'Rina',
+           'apellido' => 'Tejada',
            'usuario' => 'presupuesto',            
-           'password' => bcrypt('giovax'),
-           'telefono' => '75335897'
+           'password' => bcrypt('1234'),
+           'telefono' => '24027665'
        ]);
        $user3 = User::create([
            'nombre' => 'Giovany',
            'apellido' => 'Rosales',
            'usuario' => 'ingenieria',            
-           'password' => bcrypt('giovax'),
+           'password' => bcrypt('1234'),
            'telefono' => '75335897'
        ]);
        $user4 = User::create([
-        'nombre' => 'Giovany',
-        'apellido' => 'Rosales',
+        'nombre' => 'Heidi',
+        'apellido' => 'Chinchilla',
         'usuario' => 'jefeuaci',            
-        'password' => bcrypt('giovax'),
-        'telefono' => '75335897'
+        'password' => bcrypt('1234'),
+        'telefono' => '24027621'
     ]);
      
        $user1->assignRole($role1);

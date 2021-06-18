@@ -65,9 +65,11 @@
                     <a href="{{route('pdf.orden.create', ['id' => $dato->id] )}}" target="_blank"><button type="button"  class="btn btn-info btn-xs">
                       <i class="fas fa-print" title="Imprimir"></i>&nbsp; Imprimir
                     </button></a>
-                    <button type="button" class="btn btn-danger btn-xs" onclick="abrirModalAnular({{ $dato->id }})">
+                     <!--@hasrole('uaci')-->
+                     <button type="button" class="btn btn-danger btn-xs" onclick="abrirModalAnular({{ $dato->id }})">
                     <i class="fas fa-trash-alt" title="Eliminar"></i>&nbsp; Anular
                     </button>
+                  <!-- @endhasrole-->
                   </td>                    
                 </tr>
                 @endforeach         
