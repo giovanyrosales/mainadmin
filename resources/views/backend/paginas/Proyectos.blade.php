@@ -69,9 +69,6 @@
                   <button type="button" class="btn btn-info btn-xs" onclick="abrirModalEditar({{ $datos->id }})">
                     <i class="fas fa-pencil-alt" title="Editar"></i>&nbsp; Editar
                     </button>
-                    <button type="button" class="btn btn-success btn-xs" onclick="abrirModalEliminar({{ $datos->id }})">
-                    <i class="fas fa-trash-alt" title="Imprimir"></i>&nbsp; Imprimir
-                    </button>
                   </td>                    
                 </tr>
               @endforeach  
@@ -465,9 +462,7 @@ function borrarServicio(){
         toastr.error('Error');               
   });
 }
-</script>
 
-<script type="text/javascript">
 //Script para Organizar la tabla de datos
     $(document).ready(function() {
       $('#example2').DataTable({

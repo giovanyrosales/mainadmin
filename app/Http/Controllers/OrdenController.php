@@ -23,8 +23,31 @@ use PDF;
 date_default_timezone_set('America/El_Salvador');
 setlocale(LC_ALL,"es_ES");
 
+//Estados de las Ordenes
+// 1 - Activa
+// 2 - Anulada
+// 0 - Default
+//Estados de las Cotizaciones
+// 0 - Default
+// 1 - Aprobada
+// 2 - Denegada
+
+
 class OrdenController extends Controller
 {
+        // retornar Ordenes 
+    public function load_orden(){
+        //para cargar las ordenes
+        $ordenes = orden::all();
+        foreach( $ordenes as $val ){
+            $requerimiento = DB::table('requisicion')->where('id', $val->requisicion_id)->first();
+            $proyecto = DB::table('proyecto')->where('id', $requerimiento->proyecto_id)->first();
+            //metemos nuevas variables en el arreglo $regdetalle
+            $val->proyecto_cod = $proyecto->codigo;
+        }
+        return view('backend.paginas.Ordenes', compact('ordenes'));
+    }
+
     // obtener info de una orden
     public function get_orden(Request $request){
         if($request->isMethod('post')){    
@@ -36,7 +59,7 @@ class OrdenController extends Controller
                 ];
             }else{
                 return [
-                    'success' => 2 // orden no encontrado                   
+                    'success' => 2 // orden no encontrada                 
                 ];
             }
         }
@@ -51,8 +74,8 @@ class OrdenController extends Controller
         $pdf = PDF::loadView('backend.reportes.orden_compra', compact('orden', 'requisicion','cotizacion'));
         $pdf->setPaper('letter', 'portrait')->setWarnings(false);
         return $pdf->stream('Orden_Compra.pdf');
-        //return view('backend.paginas.Hemo',compact('data'));
     }
+
     // agregar nueva Orden
     public function add_orden(Request $request){ 
         if($request->isMethod('post')){  
@@ -87,7 +110,8 @@ class OrdenController extends Controller
                 'lugar'=>$request->lugar,
                 'cotizacion_id'=>$request->cotizacion_id,
                 'requisicion_id'=>$request->requisicion_id,
-                'proveedor_id'=>$request->proveedor_id]); 
+                'proveedor_id'=>$request->proveedor_id,
+                'estado'=>'1']); 
 
         if($crearorden){  
             $orden_id = DB::getPdo()->lastInsertId();   
@@ -103,4 +127,24 @@ class OrdenController extends Controller
 
         }
     }
+    // Anular Orden de compra
+    public function anular_orden(Request $request){
+
+        if($request->isMethod('post')){  
+
+            // encontrar orden de compra
+            if($orden = DB::table('orden')->where('id', $request->id)->first()){                        
+                
+                    DB::table('orden')->where('id', '=', $request->id)->update(['estado' => '2']);
+                    return [
+                        'success' => 1 // Orden Anulada
+                    ];                      
+            }else{
+                return [
+                    'success' => 3 // Orden no encontrada
+                ];
+            }
+        }
+    }
+
 }

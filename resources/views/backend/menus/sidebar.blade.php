@@ -99,7 +99,7 @@
             </ul>
           </li>
           <li class="nav-item has-treeview">
-            <a href="{{ url('/admin/proyectos') }}" target="frameprincipal" class="nav-link">
+            <a href="{{ url('/admin/load_orden') }}" target="frameprincipal" class="nav-link">
               <i class="nav-icon fas fa-list"></i>
               <p>
               Ordenes de Compra

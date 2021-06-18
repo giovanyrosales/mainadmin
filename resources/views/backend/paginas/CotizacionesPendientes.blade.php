@@ -90,25 +90,28 @@
 
   <script>
 //*********************** Para darle tiempo al toaster al recargar la pagina */
-toastr.options.timeOut = 750;
+    toastr.options.timeOut = 750;
     toastr.options.fadeOut = 750;
     toastr.options.onHidden = function(){
       // this will be executed after fadeout, i.e. 2secs after notification has been show
      window.location.reload();
     }; 
 //************************************************************************** */
-</script>
-@section('content-admin-js')
-
-
-      
-
-<script type="text/javascript">
+   
 //Script para Organizar la tabla de datos
-    $(document).ready(function() {
-      
+$(document).ready(function() {
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "order": [[ 2, "desc" ]],
+        "info": true,
+        "autoWidth": false,
+        "language": {
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas"            
+        }
+      });
     });
-
 </script>
 
 @stop

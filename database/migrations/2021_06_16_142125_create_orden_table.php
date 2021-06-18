@@ -21,7 +21,7 @@ class CreateOrdenTable extends Migration
             $table->bigInteger('requisicion_id')->unsigned();
             $table->bigInteger('cotizacion_id')->unsigned();
             $table->bigInteger('proveedor_id')->unsigned();
-            $table->string('estado')->nullable();     
+            $table->string('estado')->default("0");   
 
             $table->foreign('admin_contrato_id')->references('id')->on('admin_contrato');
             $table->foreign('requisicion_id')->references('id')->on('requisicion');

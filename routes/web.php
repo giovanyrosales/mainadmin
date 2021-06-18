@@ -135,7 +135,7 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
             Route::post('admin/add_orden', 'OrdenController@add_orden');
             Route::post('admin/get_orden', 'OrdenController@get_orden');
             Route::post('admin/update_orden', 'OrdenController@update_orden');
-            Route::post('admin/delete_orden', 'OrdenController@delete_orden');
+            Route::post('admin/anular_orden', 'OrdenController@anular_orden');
 
            //Generacion de PDFs
            //pdf reforma_apertura
@@ -143,7 +143,13 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
            Route::get('pdf_rep_comprasal/{id}', 'PdfController@pdf_rep_comprasal');
 
            //PDF Orden de Compra
+                //desde controlador
            Route::get('admin/pdf_orden/{id}', 'OrdenController@pdf_orden');
+                //desde vista
+           Route::get('create-item1/{id}', [
+            'as' => 'pdf.orden.create', 
+            'uses' => 'OrdenController@pdf_orden'
+        ]);
 
 
     //INFORMACION DE USUARIOS

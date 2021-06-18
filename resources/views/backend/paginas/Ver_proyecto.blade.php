@@ -15,12 +15,12 @@
             <div class="col-sm-6" style="margin-right: 10px;">
               <h1>Control Individual de Proyecto</h1>
             </div>
-            <div class="col-sm-1">
+            <!--<div class="col-sm-1">
               <button type="button" onclick="imprimirPresupuesto()" class="btn btn-info btn-sm">
                 <i class="fas fa-print"></i>
                 Imprimir
               </button>
-            </div>
+            </div>-->
             <div class="col-sm-2">
               <button type="button" onclick="abrirModalAgregarReq()" class="btn btn-success btn-sm">
                 <i class="fas fa-pencil-alt"></i>
@@ -71,7 +71,7 @@
       <div class="container-fluid">
         <div class="card card-danger">
           <div class="card-header">
-            <h3 class="card-title">Requisiciones de Proyecto</h3>
+            <h3 class="card-title">Requerimientos de Proyecto</h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
               <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
@@ -85,8 +85,8 @@
                 <thead>             
                   <tr>
                     <th style="width: 10%;">Num.</th>   
-                    <th style="width: 40%;">Fecha</th>                            
-                    <th style="width: 20%;">Opciones</th>                           
+                    <th style="width: 15%;">Fecha</th>                            
+                    <th style="width: 40%;">Opciones</th>                           
                   </tr>
                 </thead>
                 <tbody>
@@ -97,14 +97,14 @@
                   <td>{{ $req-> fecha }}</td> 
                   <td>
                   <center>
+                  <a class="btn btn-warning btn-xs" href="{{ url('/admin/crear_cotizacion_vista/'.$req->id ) }}" target="frameprincipal">
+                  <i class="fa fa-eye" title="Editar"></i>&nbsp; Cotizar </a>
                     <button type="button" class="btn btn-info btn-xs" onclick="abrirModalEditar({{ $req->id }})">
                       <i class="fas fa-pencil-alt" title="Editar"></i>&nbsp; Editar
                     </button>
                     <button type="button" class="btn btn-danger btn-xs" onclick="EliminarRequisicion({{ $req->id }})">
                       <i class="fas fa-trash" title="Editar"></i>&nbsp; Borrar
                     </button>
-                    <a class="btn btn-warning btn-xs" href="{{ url('/admin/crear_cotizacion_vista/'.$req->id ) }}" target="frameprincipal">
-                  <i class="fa fa-eye" title="Editar"></i>&nbsp; Cotizar </a>
                   </center>                                                                                                   
                   </td>                    
                 </tr>
