@@ -374,7 +374,7 @@ function enviarModalAgregarReq(){
         formData.append('descripcion[]', descripciones[a]);
       }    
 
-      axios.post('/admin/add_requisicion', formData, {  
+      axios.post('add_requisicion', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -400,7 +400,7 @@ function abrirModalEditar(id){
   document.getElementById("formularioU2").reset();   
   $('#matrizpar tbody').empty();
   spinHandle = loadingOverlay().activate();
-  axios.post('/admin/get_requisicion',{'id': id })
+  axios.post('get_requisicion',{'id': id })
       .then((response) => {	
         loadingOverlay().cancel(spinHandle); // cerrar loading
         if(response.data.success = 1){
@@ -467,7 +467,7 @@ function abrirModalEditar(id){
             formData.append('iddet[]', iddet[a]);
             }
 
-          axios.post('/admin/update_requisicion', formData, {  
+          axios.post('update_requisicion', formData, {  
           })
           .then((response) => {	
             loadingOverlay().cancel(spinHandle); // cerrar loading            

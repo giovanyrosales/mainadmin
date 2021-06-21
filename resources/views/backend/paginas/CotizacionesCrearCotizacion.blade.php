@@ -184,7 +184,7 @@
         });
         document.getElementById("formulariocrearcotizacion").reset();   
         $('#tablecrearcotizacion tbody').empty(); 
-        axios.post('/admin/get_requisiciones_on_list', { 'lista' : lista} )
+        axios.post('get_requisiciones_on_list', { 'lista' : lista} )
         .then((response) => {
           let items = response.data;
           for (var i = 0; i < items.length; i++) {
@@ -244,7 +244,7 @@
             formData.append('detallereqid[]', detallereqid[a]);
           }    
 
-          axios.post('/admin/guardar_cotizacion', formData )
+          axios.post('guardar_cotizacion', formData )
           .then(function (response) {
             
             removeOptionsFromSelect(document.getElementById('mySideToSideSelect_to'));
@@ -263,7 +263,7 @@
                 preventDuplicates: true,
                 // Redirect 
                 onHidden: function() {
-                  window.location.href = '/admin/load_cotizaciones_pendientes';
+                  window.location.href = 'load_cotizaciones_pendientes';
                 }
             });
                     

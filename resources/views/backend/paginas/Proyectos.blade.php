@@ -445,7 +445,7 @@ function borrarServicio(){
   id = document.getElementById("idD").value;
   spinHandle = loadingOverlay().activate(); // mostrar loading
 
-  axios.post('/admin/deleteservicio',{
+  axios.post('deleteservicio',{
     'id': id  
       })
       .then((response) => {	

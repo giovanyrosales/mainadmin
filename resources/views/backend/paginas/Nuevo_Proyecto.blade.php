@@ -224,7 +224,7 @@
       formData.append('codcontable', codcontable);
       formData.append('acuerdoapertura', acuerdoapertura);
 
-      axios.post('/admin/add_proyecto', formData, {  
+      axios.post('add_proyecto', formData, {  
         })
         .then((response) => {	
           loadingOverlay().cancel(spinHandle); // cerrar loading            
