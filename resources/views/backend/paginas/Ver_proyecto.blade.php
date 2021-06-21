@@ -505,7 +505,7 @@ function mensajeResponse4(valor){
 </script>
 
 <script type="text/javascript">
-//Script para Organizar la tabla de datos
+//Script para Organizar la tabla de datos // prueba
     $(document).ready(function() {
       $('#example1').DataTable({
         "paging": true,
