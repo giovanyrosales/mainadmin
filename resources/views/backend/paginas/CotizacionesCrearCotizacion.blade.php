@@ -184,7 +184,7 @@
         });
         document.getElementById("formulariocrearcotizacion").reset();   
         $('#tablecrearcotizacion tbody').empty(); 
-        axios.post('get_requisiciones_on_list', { 'lista' : lista} )
+        axios.post('/admin/get_requisiciones_on_list', { 'lista' : lista} )
         .then((response) => {
           let items = response.data;
           for (var i = 0; i < items.length; i++) {
@@ -243,8 +243,8 @@
             formData.append('codpresup[]', codpresup[a]);
             formData.append('detallereqid[]', detallereqid[a]);
           }    
-
-          axios.post('guardar_cotizacion', formData )
+          console.log(window.location);
+          axios.post('/admin/guardar_cotizacion', formData )
           .then(function (response) {
             
             removeOptionsFromSelect(document.getElementById('mySideToSideSelect_to'));
@@ -257,13 +257,14 @@
                    
               $('#modalAgregarCotizacion').modal('toggle');  
             }else{
+              
               var spinHandle = loadingOverlay().activate(); // activar loading
               toastr.success('Cotizacion Guardada', 'Guardada exitosamente', {
                 timeOut: 1700,
                 preventDuplicates: true,
                 // Redirect 
                 onHidden: function() {
-                  window.location.href = 'load_cotizaciones_pendientes';
+                  window.location.href = '/admin/load_cotizaciones_pendientes';
                 }
             });
                     

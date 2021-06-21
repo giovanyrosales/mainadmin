@@ -176,7 +176,7 @@ toastr.options.timeOut = 750;
         formData.append('estado', estado);
         formData.append('cotizacion_id', cotizacion_id);
 
-      axios.post('procesar_cotizacion', formData )
+      axios.post('/admin/procesar_cotizacion', formData )
         .then(function (response) {
           var spinHandle = loadingOverlay().activate(); // activar loading
           toastr.success('Procesada', 'Cotizacion procesada con exito', {
@@ -184,7 +184,7 @@ toastr.options.timeOut = 750;
                 preventDuplicates: true,
                 // Redirect 
                 onHidden: function() {
-                  window.location.href = "procesar_cotizaciones";
+                  window.location.href = "/admin/procesar_cotizaciones";
                 }
             });
                   
@@ -226,7 +226,7 @@ toastr.options.timeOut = 750;
               formData.append('detallecotid[]', detallecotid[a]);
             }    
 
-            axios.post('update_cotizacion', formData )
+            axios.post('/admin/update_cotizacion', formData )
             .then(function (response) {
               var spinHandle = loadingOverlay().activate(); // activar loading
               toastr.success('Actualizada', 'Cotizacion actualizada con exito', {
@@ -234,7 +234,7 @@ toastr.options.timeOut = 750;
                 preventDuplicates: true,
                 // Redirect 
                 onHidden: function() {
-                  window.location.href = "load_cotizaciones_pendientes";
+                  window.location.href = "/admin/load_cotizaciones_pendientes";
                 }
             });
                   

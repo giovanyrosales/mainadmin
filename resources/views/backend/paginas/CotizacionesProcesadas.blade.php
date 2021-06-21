@@ -157,7 +157,7 @@ toastr.options.timeOut = 750;
 function abrirModalGenerarOrden(id){
   document.getElementById("formulariocrearorden").reset();   
   spinHandle = loadingOverlay().activate();
-  axios.post('get_cotizacion',{'id': id })
+  axios.post('/admin/get_cotizacion',{'id': id })
       .then((response) => {	
         loadingOverlay().cancel(spinHandle); // cerrar loading
         if(response.data.success = 1){
@@ -195,7 +195,7 @@ function enviarModalGenerarOrden(){
       formData.append('proveedor_id', proveedor_idn);
       formData.append('admin_contrato_id', admin_contrato_idn);
       
-      axios.post('add_orden', formData, {  
+      axios.post('/admin/add_orden', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            

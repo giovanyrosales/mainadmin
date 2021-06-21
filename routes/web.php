@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
         Route::get('admin/load_proyectos', 'proyectosController@load_proyectos');
         Route::get('admin/load_proyectos_aper', 'proyectosController@load_proyectos_aper');
         Route::get('admin/crear_proyecto', 'proyectosController@crear_proyecto');
-        Route::get('/admin/ver_proyecto/{id}', 'proyectosController@ver_proyecto');
+        Route::get('admin/ver_proyecto/{id}', 'proyectosController@ver_proyecto');
         //guardar proyecto
         Route::post('admin/add_proyecto', 'proyectosController@add_proyecto');
         Route::post('admin/get_proyecto', 'proyectosController@get_proyecto');

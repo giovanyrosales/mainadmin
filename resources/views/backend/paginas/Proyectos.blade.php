@@ -326,7 +326,7 @@ toastr.options.timeOut = 750;
 function abrirModalEditar(id){
   document.getElementById("formularioU").reset();   
   spinHandle = loadingOverlay().activate();
-  axios.post('get_proyecto',{'id': id })
+  axios.post('/admin/get_proyecto',{'id': id })
       .then((response) => {	
         loadingOverlay().cancel(spinHandle); // cerrar loading
         if(response.data.success = 1){
@@ -408,7 +408,7 @@ function enviarModalEditar(){
       formData.append('id', id);
       
 
-      axios.post('update_proyecto', formData, {  
+      axios.post('/admin/update_proyecto', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -445,7 +445,7 @@ function borrarServicio(){
   id = document.getElementById("idD").value;
   spinHandle = loadingOverlay().activate(); // mostrar loading
 
-  axios.post('deleteservicio',{
+  axios.post('/admin/deleteservicio',{
     'id': id  
       })
       .then((response) => {	
