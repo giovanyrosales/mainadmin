@@ -18,81 +18,186 @@ input {
 	font-family:Arial, sans-serif; font-size:14px;
 }
 </style>
-<table  class="table-head" style="margin-top: -10px;">
+<table  class="table-head" style="margin-top: 10px;">
   <tr>
-    <td width="20%"><img style="margin-top: -20px; "src="{{ asset('/images/logo.png') }}" width="50px" height="50px"></td>
-    <td width="80%" style="text-align:center; margin-left: -10px;"><h3>ORDEN DE COMPRA</h3>
 	<br><br>
+    <td width="20%"></td>
+    <td width="80%" style="text-align:right; ">
+	<br></br>
+	<br></br>
+			<label style="font-weight: bold; font-size: 25px;  text-align:right;">{{ $proyecto-> codigo }}</label>
 	</td>
   </tr>
 </table>
-<table class="table-body" border="1" cellspacing=0 >
+
+
+<br></br>
+<table class="table-body" border="0" cellspacing=0 >
 	<tr>
-        <td colspan="2">
-			<label style="font-weight: bold; vertical-align:middle;">C&oacute;digo de Proyecto:</label>
-			<input type="text" style="width:70%;" value="">
+		<td  style=" width: 11%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right;"></label>
 		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<label style="font-weight: bold; vertical-align:middle;">Nombre de Proyecto:</label>
-			<input type="text" style="width:70%;"  value="">
+        <td  style=" width: 7%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; font-size: 18px;  text-align:center;">{{ strftime("%d", strtotime($fecha)) }}</label>
 		</td>
-	</tr>
-    <tr>
-		<td colspan="2">
-			<label style="font-weight: bold; vertical-align:middle;">&Aacute;rea de Gesti&oacute;n:</label>
-			<input type="text" style="width:70%;" value="">
+		<td style=" text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; font-size: 18px;">{{ strftime("%B", strtotime($fecha)) }}</label>
 		</td>
-	</tr>
-    <tr>
-		<td colspan="2">
-			<label style="font-weight: bold; vertical-align:middle;">Linea de Trabajo:</label>
-			<input type="text" style="width:70%;" value="">
+		<td style="width: 13%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; font-size: 18px;">{{ strftime("%y", strtotime($fecha)) }}</label>
 		</td>
-	</tr>
-    <tr>
-		<td colspan="2">
-			<label style="font-weight: bold; vertical-align:middle;">Fuente de Financiamiento:</label>
-			<input type="text" style="width:70%;" value="">
-		</td>
-	</tr>
-    <tr>
-		<td colspan="2">
-			<label style="font-weight: bold; vertical-align:middle;">Sub-Fuente de Financiamiento:</label>
-			<input type="text" style="width:70%;" value="">
-		</td>
-	
-	</tr>
-    
-    <tr>
-		<td colspan="2">
-			<label style="font-weight: bold; vertical-align:middle;">Fecha de Inicio:</label>
-			<input type="text" style="width:70%;" value="">
-		</td>
-	</tr>
-    <tr>
-		<td colspan="2">
-			<label style="font-weight: bold; vertical-align:middle;">Calificacion del Gasto:</label>
-			<input type="text" style="width:70%;" value="">
+		<td style="width: 1%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle;"></label>
 		</td>
 	</tr>
 </table>
-<table class="table-body">
 
-<tr>
-  	<td width="60%" colspan="1">
-		<input type="text" style="width:100%" value="">
-	</td>
-	<td width="40%" colspan="1">
-		<input type="text" style="width:85%; text-align:right;" value="">
-	</td>
-</tr>
-
-<tr>
-  	<td colspan="1">
+<table class="table-body" border="0" cellspacing=0  style="margin-top:20px">
+	<tr>
+        <td  style=" width: 12.42%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right;"></label>
+		</td>
+		<td  style=" width: 51.75%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; font-size: 18px;">{{ $proveedor->nombre }}</label>
+		</td>
+		<td  style=" width: 16.8%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right;"></label>
+		</td>
+		<td  style=" width: 19.08%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; font-size: 15px;">{{ $proveedor->nit }}</label>
+		</td>
 		
-	</td>
-</tr>
+	</tr>
 </table>
 
+<br></br>
+<br></br>
+
+<?php $total = 0; ?>
+<table class="table-body" border="0" cellspacing=0 >
+	
+	@foreach($det_cotizacion as $item)
+	
+	<tr style=" height: 30px" >
+        <td  style=" width: 8.9%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; font-size: 18px;">{{ $item->cantidad }}</label>
+		</td>
+		<td  style=" width: 54.1%; text-align:left; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:left; margin-left: 5%; font-size: 18px;">{{ $item->descripcion }} </label>
+		</td>
+		<td  style=" width: 11.6%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; font-size: 18px;">{{ $item->cod_presup }}</label>
+		</td>
+		<td  style=" width: 1.6%; text-align:left; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:left; font-size: 18px;">$</label>
+		</td>
+		<td  style=" width: 9%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right; font-size: 18px;">{{ $item->preciounit }}</label>
+		</td>
+		<td  style=" width: 1%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right;"></label>
+		</td>
+		<td  style=" width: 1.6%; text-align:left; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:left; font-size: 18px;">$</label>
+		</td>
+		<td  style=" width: 11.2%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right; font-size: 18px;">{{ $item->cantidad * $item->preciounit }}</label>
+		</td>
+		<td  style=" width: 1%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right;" value="{{$total = $total + ($item->cantidad * $item->preciounit) }}"></label>
+		</td>
+		
+	</tr>
+	@endforeach 
+	@for($i = 1; $i < (20-count($det_cotizacion)); ++$i)
+	<tr style=" height: 30px" >
+        <td  style=" width: 8.9%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; font-size: 18px;"></label>
+		</td>
+		<td  style=" width: 54.1%; text-align:left; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:left; margin-left: 5%; font-size: 18px;"> </label>
+		</td>
+		<td  style=" width: 11.6%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; font-size: 18px;"></label>
+		</td>
+		<td  style=" width: 1.6%; text-align:left; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:left; font-size: 18px;"></label>
+		</td>
+		<td  style=" width: 9%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right; font-size: 18px;"></label>
+		</td>
+		<td  style=" width: 1%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right;"></label>
+		</td>
+		<td  style=" width: 1.6%; text-align:left; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:left; font-size: 18px;"></label>
+		</td>
+		<td  style=" width: 11.2%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right; font-size: 18px;"></label>
+		</td>
+		<td  style=" width: 1%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right;"></label>
+		</td>
+		
+	</tr>
+	@endfor
+</table>
+
+<table class="table-body" border="0" cellspacing=0 >
+<tr style=" height: 30px" >
+        <td  style=" width: 8.9%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; font-size: 18px;"></label>
+		</td>
+		<td  style=" width: 54.1%; text-align:left; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:left; margin-left: 5%; font-size: 18px;"> </label>
+		</td>
+		<td  style=" width: 11.6%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; font-size: 18px;"></label>
+		</td>
+		<td  style=" width: 1.6%; text-align:left; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:left; font-size: 18px;"></label>
+		</td>
+		<td  style=" width: 9%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right; font-size: 18px;">TOTAL</label>
+		</td>
+		<td  style=" width: 1%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right;"></label>
+		</td>
+		<td  style=" width: 1.6%; text-align:left; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:left; font-size: 18px;">$</label>
+		</td>
+		<td  style=" width: 11.2%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right; font-size: 18px;">{{ $total }}</label>
+		</td>
+		<td  style=" width: 1%; text-align:right; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:right;"></label>
+		</td>	
+	</tr>
+</table>
+
+<table class="table-body" border="0" cellspacing=0 style="margin-top:20px" >
+<tr style=" height: 30px; " >
+        <td  style=" width: 63%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; font-size: 18px;">{{$administrador->nombre}}</label>
+		</td>
+		<td  style=" width: 37%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; margin-left: 5%; font-size: 18px;">{{  $proyecto->codigo}} </label>
+		</td>
+	</tr>
+</table>
+
+<table class="table-body" border="0" cellspacing=0 style="margin-top:20px" >
+<tr style=" height: 30px; " >
+        <td  style=" width: 100%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; font-size: 18px;">{{$proyecto->nombre}}</label>
+		</td>
+	</tr>
+</table>
+
+<table class="table-body" border="0" cellspacing=0 style="margin-top:20px" >
+<tr style=" height: 30px; " >
+        <td  style=" width: 100%; text-align:center; ">
+			<label style="font-weight: bold; vertical-align:middle; text-align:center; font-size: 18px;">{{$proyecto->ubicacion}}</label>
+		</td>
+	</tr>
+</table>
