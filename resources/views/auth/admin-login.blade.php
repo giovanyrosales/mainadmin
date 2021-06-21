@@ -90,7 +90,7 @@
 				document.getElementById("btnLogin").disabled = true;
 
 				//axios.post('/webalcaldia.com/admin', formData, {
-					axios.post('/mainadmin/', formData, {
+					axios.post('/admin', formData, {
 				})
 					.then((response) => {
 						// activar btnLogin

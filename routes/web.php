@@ -16,7 +16,7 @@
 //lo cambie para hacer el login la pantalla inicial, con la siguiente linea
 
 Route::get('/', 'Auth\LoginController@loginForm')->name('admin.login');
-Route::post('/', 'Auth\LoginController@login');
+Route::post('admin', 'Auth\LoginController@login');
 
 // proteger rutas con middleware AccessAdmin.php
 Route::group(['middleware' => 'auth', 'auth.admin'], function () { 
