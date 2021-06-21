@@ -117,7 +117,6 @@
       </div>
       </div>
     </div>
-    
       <!-- Modal Agregar Requisicion -->
     <div class="modal fade" id="modalAgregar" tabindex="-1">
       <div class="modal-dialog modal-lg">
@@ -329,7 +328,6 @@
   <script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('plugins/loading/loadingOverlay.js') }}" type="text/javascript"></script> 
   <script src="{{ asset('plugins/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
-
   <script>
 // variable para borrar las filas de una requisicion
 var todelete = [];
