@@ -166,6 +166,7 @@ function abrirModalGenerarOrden(id){
           $('#cotizacion_idn').val(response.data.cotizacion.id);
           $('#requisicion_idn').val(response.data.cotizacion.requisicion_id);
           $('#proveedor_idn').val(response.data.cotizacion.proveedor_id);
+          $('#lugarn').val('En las instalaciones de '+response.data.proveedor_name.nombre);
         }else{ 
           toastr.error('Error', 'Cotizacion no encontrada'); 
         }

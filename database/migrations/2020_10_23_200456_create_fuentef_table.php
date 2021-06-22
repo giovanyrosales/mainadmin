@@ -16,7 +16,7 @@ class CreateFuentefTable extends Migration
         Schema::create('fuentef', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('codigo');     
-            $table->string('nombre');
+            $table->string('nombre')->nullable();
         });
     }
 

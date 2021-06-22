@@ -101,7 +101,7 @@
                     </div>   
                     <div class="form-group">
                       <label>NIT:</label>   
-                      <input type="text" class="form-control" id="nitn" name="nitn" placeholder="Nit">
+                      <input type="text" class="form-control" id="nitn" name="nitn" placeholder="Nit" >
                     </div>
                     <div class="form-group">
                       <label>NRC:</label>   

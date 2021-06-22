@@ -16,7 +16,7 @@ class CreateCuentaTable extends Migration
         Schema::create('cuenta', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
-            $table->string('codigo');
+            $table->string('codigo')->nullable();
         });
     }
 

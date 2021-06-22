@@ -510,11 +510,13 @@ public function crear_cotizacion_vista(Request $request){
 // get cotizacoin para generar orden
 public function get_cotizacion(Request $request){
     if($request->isMethod('post')){    
-
+        $datoscoti = DB::Table('cotizacion')->where('id', $request->id)->first();
+        $datosproveedor = DB::Table('proveedores')->where('id', $datoscoti->proveedor_id)->first();
         if($datos = DB::Table('cotizacion')->where('id', $request->id)->first()){
             return [
                 'success' => 1,
-                'cotizacion' => $datos
+                'cotizacion' => $datos,
+                'proveedor_name' => $datosproveedor
             ];
         }else{
             return [

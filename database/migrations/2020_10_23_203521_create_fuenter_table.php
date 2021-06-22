@@ -17,7 +17,7 @@ class CreateFuenterTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('fuentef_id')->unsigned();
             $table->string('codigo');     
-            $table->string('nombre');
+            $table->string('nombre')->nullable();
             
 
             $table->foreign('fuentef_id')->references('id')->on('fuentef');

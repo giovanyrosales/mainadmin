@@ -16,7 +16,7 @@ class CreateLineaTable extends Migration
         Schema::create('linea', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('codigo');     
-            $table->string('nombre');
+            $table->string('nombre')->nullable();
             
         });
     }

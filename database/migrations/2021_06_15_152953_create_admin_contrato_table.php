@@ -16,7 +16,7 @@ class CreateAdminContratoTable extends Migration
         Schema::create('admin_contrato', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');     
-            $table->string('telefono');
+            $table->string('telefono')->nullable();
         });
     }
 

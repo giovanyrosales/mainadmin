@@ -296,6 +296,15 @@
                         <option value="" >Seleccione una opción</option>
                         <option value="unidad" >C/U</option>
                         <option value="mts." >mts.</option>
+                        <option value="mts." >plg</option>
+                        <option value="mts." >gal</option>
+                        <option value="mts." >m2</option>
+                        <option value="mts." >m3</option>
+                        <option value="mts." >yds</option>
+                        <option value="mts." >lb</option>
+                        <option value="mts." >Oz</option>
+                        <option value="mts." >Kg</option>
+                        <option value="mts." >cm3</option>
                       </select>
                     </div>
                   </div>

@@ -466,13 +466,11 @@ public function add_admin(Request $request){
     if($request->isMethod('post')){  
 
     $regla = array( 
-        'nombre' => 'required',           
-        'telefono' => 'required',
+        'nombre' => 'required'
             );
 
     $mensaje = array(
-        'nombre.required' => 'Nombre requerido',
-        'telefono.required' => 'Telefono requerido'
+        'nombre.required' => 'Nombre requerido'
         );
 
     $validar = Validator::make($request->all(), $regla, $mensaje );
@@ -498,7 +496,6 @@ public function add_admin(Request $request){
                 'success' => 2 //
             ];
             }
-
         }
     }
     // editar administrador de contrato
