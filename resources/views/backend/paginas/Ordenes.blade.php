@@ -69,6 +69,9 @@
                      <button type="button" class="btn btn-danger btn-xs" onclick="abrirModalAnular({{ $dato->id }})">
                     <i class="fas fa-trash-alt" title="Eliminar"></i>&nbsp; Anular
                     </button>
+                    <button type="button" class="btn btn-warning btn-xs" onclick="abrirModalActa({{ $dato->id }})">
+                    <i class="fa fa-laptop" title="GenerarOrden"></i>&nbsp; Generar Acta
+                    </button>
                   <!-- @endhasrole-->
                   </td>                    
                 </tr>
@@ -102,6 +105,46 @@
         </div>      
       </div>        
   </div>
+    <!-- Modal  Generar Acta -->
+    <div class="modal fade" id="modalGenerarActa" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Detalles de Acta</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="formulariocrearorden">
+                    <div class="card-body">    
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="row">
+                            <div class="form-group col-md-6">
+                            <label class="col-md-12" for="appt">Hora de la acta</label>
+                              <input class="col-md-6" type="time" id="horaacta" name="appt" min="09:00" max="18:00" value="<?php echo date('h:i'); ?>" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Fecha de la Acta</label>
+                                <input type="date" name="fechaacta" id="fechaacta" class="form-control" value="<?php echo date("Y-m-d");?>">
+                                <input type="hidden" name="orden_id" id="orden_id" class="form-control" >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="btnGuardarU" onclick="enviarModalGenerarActa()">Guardar</button>
+                </div>          
+              </div>        
+            </div>      
+        </div>
+       </div>
+  </div>
 @extends('backend.menus.indexInferior')
 
 @section('content-admin-js')	
@@ -130,12 +173,17 @@ function abrirModalAnular(id){
   $('#idD').val(id);    
 }
 
+function abrirModalActa(id){     
+  $('#modalGenerarActa').modal('show');
+  $('#orden_id').val(id);    
+}
+
 // enviar peticion para Anular la orden
 function anularOrden(){
   id = document.getElementById("idD").value;
   spinHandle = loadingOverlay().activate(); // mostrar loading
 
-  axios.post('/admin/anular_orden',{
+  axios.post(url+'anular_orden',{
     'id': id  
       })
       .then((response) => {	
@@ -152,6 +200,43 @@ function anularOrden(){
         loadingOverlay().cancel(spinHandle); // cerrar loading   
         toastr.error('Error');               
   });
+}
+//Guardar Acta
+function enviarModalGenerarActa(){
+      var orden_id = document.getElementById('orden_id').value;
+      var horaacta = document.getElementById('horaacta').value;
+      var fechaacta = document.getElementById('fechaacta').value;
+
+      var spinHandle = loadingOverlay().activate(); // activar loading
+            
+      let formData = new FormData();
+      formData.append('orden_id', orden_id);
+      formData.append('horaacta', horaacta);
+      formData.append('fechaacta', fechaacta);
+      
+      axios.post(url+'add_acta', formData, {  
+       })
+       .then((response) => {	
+         loadingOverlay().cancel(spinHandle); // cerrar loading            
+        mensajeResponse1(response);
+       })
+       .catch((error) => {  
+          loadingOverlay().cancel(spinHandle); // cerrar loading   
+          toastr.error('Error', 'Datos incorrectos!');               
+      }); 
+}
+// mensaje cuando se crea una nueva acta
+function mensajeResponse1(valor){
+    if(valor.data.success == 1){
+      toastr.success('Guardado', 'Acta creada exitosamente!');
+      $('#modalGenerarActa').modal('hide'); 
+      window.open("{{ URL::to('admin/pdf_acta') }}/" + valor.data.acta_id);
+    }else if(valor.data.success == 2){
+      toastr.error('Error', 'Orden NO guardada!');
+    }else{
+    // error en validacion en servidor
+    toastr.error('Error', 'Datos incorrectos!');
+    }
 }
 
 //Script para Organizar la tabla de datos

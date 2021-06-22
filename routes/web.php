@@ -151,6 +151,20 @@ Route::group(['middleware' => 'auth', 'auth.admin'], function () {
             'uses' => 'OrdenController@pdf_orden'
         ]);
 
+         //ACTAS
+         Route::get('admin/load_acta', 'ActaController@load_acta');
+         Route::post('admin/add_acta', 'ActaController@add_acta');
+         Route::post('admin/get_acta', 'ActaController@get_acta');
+
+        //PDF Acta
+         //desde controlador
+         Route::get('admin/pdf_acta/{id}', 'ActaController@pdf_acta');
+         //desde vista
+         Route::get('create-item2/{id}', [
+             'as' => 'pdf.acta.create', 
+             'uses' => 'ActaController@pdf_acta'
+         ]);
+
 
     //INFORMACION DE USUARIOS
     Route::get('/admin/editarusuario', 'UserController@index')->name('admin.EditarUsuario');
