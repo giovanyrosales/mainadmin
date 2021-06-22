@@ -38,13 +38,13 @@ input {
 			<label style="font-weight: bold; vertical-align:middle; text-align:right;"></label>
 		</td>
         <td  style=" width: 7%; text-align:center; ">
-			<label style="font-weight: bold; vertical-align:middle; font-size: 18px;  text-align:center;">{{ strftime("%d", strtotime($fecha)) }}</label>
+			<label style="font-weight: bold; vertical-align:middle; font-size: 18px;  text-align:center;">{{ $fecha[0] }}</label>
 		</td>
 		<td style=" text-align:center; ">
-			<label style="font-weight: bold; vertical-align:middle; font-size: 18px;">{{ strftime("%B", strtotime($fecha)) }}</label>
+			<label style="font-weight: bold; vertical-align:middle; font-size: 18px;">{{ $fecha[1] }}</label>
 		</td>
 		<td style="width: 13%; text-align:right; ">
-			<label style="font-weight: bold; vertical-align:middle; font-size: 18px;">{{ strftime("%y", strtotime($fecha)) }}</label>
+			<label style="font-weight: bold; vertical-align:middle; font-size: 18px;">{{ $fecha[2] }}</label>
 		</td>
 		<td style="width: 1%; text-align:right; ">
 			<label style="font-weight: bold; vertical-align:middle;"></label>

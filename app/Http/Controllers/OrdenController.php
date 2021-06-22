@@ -21,7 +21,7 @@ use PDF;
 
 //Definir zona horaria o region.
 date_default_timezone_set('America/El_Salvador');
-setlocale(LC_ALL,"es_ES");
+setlocale(LC_TIME, "spanish");
 
 //Estados de las Ordenes
 // 1 - Activa
@@ -32,8 +32,6 @@ setlocale(LC_ALL,"es_ES");
 // 1 - Aprobada
 // 2 - Denegada
 
-date_default_timezone_set('America/El_Salvador');
-setlocale(LC_ALL,"es_ES");
 class OrdenController extends Controller
 {
     
@@ -78,7 +76,9 @@ class OrdenController extends Controller
         $det_cotizacion = DB::table('det_cotizacion')->where('cotizacion_id',  $orden->cotizacion_id)->get();
         $administrador = DB::table('admin_contrato')->where('id',  $orden->admin_contrato_id)->first();
         
-        $fecha = strftime("%d-%B-%Y",strtotime($orden->fechaorden));
+        //$fecha = strftime("%d-%B-%Y", strtotime($orden->fechaorden));
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $fecha = array(date("d", strtotime($orden->fechaorden) ), $meses[date("n", strtotime($orden->fechaorden) )-1], date("Y", strtotime($orden->fechaorden) ) );
 
         $pdf = PDF::loadView('backend.reportes.orden_compra', compact('orden','cotizacion','proyecto','fecha','proveedor','det_cotizacion','administrador'));
         $pdf->setPaper('letter', 'portrait')->setWarnings(false);
