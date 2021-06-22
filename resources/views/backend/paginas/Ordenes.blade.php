@@ -69,9 +69,16 @@
                      <button type="button" class="btn btn-danger btn-xs" onclick="abrirModalAnular({{ $dato->id }})">
                     <i class="fas fa-trash-alt" title="Eliminar"></i>&nbsp; Anular
                     </button>
-                    <button type="button" class="btn btn-warning btn-xs" onclick="abrirModalActa({{ $dato->id }})">
-                    <i class="fa fa-laptop" title="GenerarOrden"></i>&nbsp; Generar Acta
+                    @if($dato->acta == 0)
+                      <button type="button" class="btn btn-warning btn-xs" onclick="abrirModalActa({{ $dato->id }})">
+                      <i class="fa fa-laptop" title="GenerarOrden"></i>&nbsp; Generar Acta
+                      </button>
+                    @endif()
+                    @if($dato->acta != 0)
+                    <button type="button" class="btn btn-info btn-xs" onclick="imprimirActa({{ $dato->acta}})">
+                    <i class="fas fa-print" title="ImprimirOrden"></i>&nbsp; Imprimir Acta
                     </button>
+                    @endif()
                   <!-- @endhasrole-->
                   </td>                    
                 </tr>
@@ -237,6 +244,10 @@ function mensajeResponse1(valor){
     // error en validacion en servidor
     toastr.error('Error', 'Datos incorrectos!');
     }
+}
+function imprimirActa(valor){
+    console.log(valor);
+    window.open("{{ URL::to('admin/pdf_acta') }}/" + valor);
 }
 
 //Script para Organizar la tabla de datos
