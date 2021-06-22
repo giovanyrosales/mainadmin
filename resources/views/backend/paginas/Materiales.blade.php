@@ -305,7 +305,7 @@ toastr.options.timeOut = 750;
 function abrirModalEditar(id){
   document.getElementById("formularioU").reset();   
   spinHandle = loadingOverlay().activate();
-  axios.post('get_material',{'id': id })
+  axios.post(url+'get_material',{'id': id })
       .then((response) => {	
         loadingOverlay().cancel(spinHandle); // cerrar loading
         if(response.data.success = 1){
@@ -352,7 +352,7 @@ function enviarModalEditar(){
       formData.append('id', id);
       
 
-      axios.post('update_material', formData, {  
+      axios.post(url+'update_material', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -382,7 +382,7 @@ function enviarModalEditar(){
       formData.append('pu', pu);
       formData.append('clasificacion', clasificacion);
 
-      axios.post('add_material', formData, {  
+      axios.post(url+'add_material', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -430,7 +430,7 @@ function borrar(){
   id = document.getElementById("idD").value;
   spinHandle = loadingOverlay().activate(); // mostrar loading
 
-  axios.post('delete_material',{
+  axios.post(url+'delete_material',{
     'id': id  
       })
       .then((response) => {	

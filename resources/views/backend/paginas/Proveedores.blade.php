@@ -211,7 +211,7 @@ toastr.options.timeOut = 750;
 function abrirModalEditar(id){
   document.getElementById("formularioU").reset();   
   spinHandle = loadingOverlay().activate();
-  axios.post('get_proveedor',{'id': id })
+  axios.post(url+'get_proveedor',{'id': id })
       .then((response) => {	
         loadingOverlay().cancel(spinHandle); // cerrar loading
         if(response.data.success = 1){
@@ -255,7 +255,7 @@ function enviarModalEditar(){
       formData.append('id', id);
       
 
-      axios.post('update_proveedor', formData, {  
+      axios.post(url+'update_proveedor', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -283,7 +283,7 @@ function enviarModalEditar(){
       formData.append('nit', nit);
       formData.append('nrc', nrc);
 
-      axios.post('add_proveedor', formData, {  
+      axios.post(url+'add_proveedor', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -331,7 +331,7 @@ function borrarproveedor(){
   id = document.getElementById("idD").value;
   spinHandle = loadingOverlay().activate(); // mostrar loading
 
-  axios.post('delete_proveedor',{
+  axios.post(url+'delete_proveedor',{
     'id': id  
       })
       .then((response) => {	

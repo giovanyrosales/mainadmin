@@ -122,7 +122,7 @@
       if(retorno){
                 formData.append('password', pass);  
                 
-            axios.post('/admin/actualizar-usuario', formData)
+            axios.post(url+'actualizar-usuario', formData)
                       .then(function (response) {
                         toastr.success(response.data.message);
                         })

@@ -87,7 +87,6 @@
   <script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('plugins/loading/loadingOverlay.js') }}" type="text/javascript"></script> 
   <script src="{{ asset('plugins/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
-
   <script>
 //*********************** Para darle tiempo al toaster al recargar la pagina */
     toastr.options.timeOut = 750;

@@ -206,7 +206,7 @@
   function abrirModalEditar(id){
     document.getElementById("formularioU").reset();   
     spinHandle = loadingOverlay().activate();
-    axios.post('/admin/infoservicios',{'id': id })
+    axios.post(url+'infoservicios',{'id': id })
         .then((response) => {	
           loadingOverlay().cancel(spinHandle); // cerrar loading
           if(response.data.success = 1){
@@ -247,7 +247,7 @@
       formData.append('id', id);
       
 
-      axios.post('/admin/update_servicios', formData, {  
+      axios.post(url+'update_servicios', formData, {  
        })
        .then((response) => {	
          loadingOverlay().cancel(spinHandle); // cerrar loading            
@@ -284,7 +284,7 @@
     id = document.getElementById("idD").value;
     spinHandle = loadingOverlay().activate(); // mostrar loading
 
-    axios.post('/admin/deleteservicio',{
+    axios.post(url+'deleteservicio',{
       'id': id  
         })
         .then((response) => {	
