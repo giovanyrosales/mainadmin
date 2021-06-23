@@ -90,7 +90,8 @@ class OrdenController extends Controller
         $fecha = array(date("d", strtotime($orden->fechaorden) ), $meses[date("n", strtotime($orden->fechaorden) )-1], date("Y", strtotime($orden->fechaorden) ) );
 
         $pdf = PDF::loadView('backend.reportes.orden_compra', compact('orden','cotizacion','proyecto','fecha','proveedor','det_cotizacion','administrador'));
-        $pdf->setPaper('letter', 'portrait')->setWarnings(false);
+        $customPaper = array(0,0,470.61,612.36);
+        $pdf->setPaper($customPaper)->setWarnings(false);
         return $pdf->stream('Orden_Compra.pdf');
         //return view('backend.reportes.orden_compra', compact('orden','cotizacion','proyecto','fecha','proveedor','det_cotizacion','administrador'));
     }

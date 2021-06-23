@@ -18,22 +18,22 @@ input {
 	font-family:Arial, sans-serif; font-size:14px;
 }
 </style>
-<table  class="table-head"  border="0" style="margin-top: 75px;">
+<table  class="table-head"  border="0" style="margin-top: 35px;">
   <tr>
 	<br><br>
     <td width="20%"></td>
-    <td width="70%" style="text-align:right; ">
+    <td width="75%" style="text-align:right; ">
 	<br></br>
 	<br></br>
-			<label style=" font-size: 25px;  text-align:right;">{{ $proyecto-> codigo }}</label>
+			<label style=" font-size: 18px;  text-align:right;">{{ $proyecto-> codigo }}</label>
 	</td>
-    <td width="10%"></td>
+	<td width="5%"></td>
   </tr>
 </table>
 
 
-<br></br>
-<table class="table-body" border="0" cellspacing=0 style="margin-top: -10px;">
+<br>
+<table class="table-body" border="0" cellspacing=0 style="margin-top: -35px;">
 	<tr>
 		<td  style=" width: 13%; text-align:right; ">
 			<label style=" vertical-align:middle; text-align:right;"></label>
@@ -75,7 +75,7 @@ input {
 <br></br>
 
 <?php $total = 0; ?>
-<table class="table-body" border="0" cellspacing=0  style="margin-top:40px; margin-left:35px" >
+<table class="table-body" border="0" cellspacing=0  style="margin-left:35px" >
 	
 	@foreach($det_cotizacion as $item)
 	
@@ -110,7 +110,7 @@ input {
 		
 	</tr>
 	@endforeach 
-	@for($i = 1; $i < (24-count($det_cotizacion)); ++$i)
+	@for($i = 1; $i < (20-count($det_cotizacion)); ++$i)
 	<tr style=" height: 30px" >
         <td  style=" width: 8.9%; text-align:center; ">
 			<label style="  vertical-align:middle; text-align:center;   font-size:14px;"></label>
@@ -144,7 +144,7 @@ input {
 	@endfor
 </table>
 
-<table class="table-body" border="0	" cellspacing=0 >
+<table class="table-body" border="0" cellspacing=0 >
 <tr style=" height: 30px" >
         <td  style=" width: 8.9%; text-align:center; ">
 			<label style="  vertical-align:middle; text-align:center;   font-size:14px;"></label>
